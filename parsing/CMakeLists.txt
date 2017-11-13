@@ -1,29 +1,12 @@
-if(WIN32)
-	add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc
-	COMMAND win_flex --wincompat -o  lexer.cc lexer.l
-	)
+find_package(BISON)
+find_package(FLEX)
 
-
-	add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/parsing/parser.hh ${CMAKE_CURRENT_BINARY_DIR}/parsing/stack.hh ${CMAKE_CURRENT_BINARY_DIR}/parser.cc
-	COMMAND win_bison -o parser.cc parser.y
-	)
-else()
-	add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc
-    COMMAND flex -o  lexer.cc lexer.l
-    )
-    add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/parsing/parser.hh ${CMAKE_CURRENT_BINARY_DIR}/parsing/stack.hh ${CMAKE_CURRENT_BINARY_DIR}/parser.cc
-    COMMAND bison -o parser.cc parser.y
-    )
-endif()
-
-add_custom_target(generate_lexbison ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/parsing/parser.hh ${CMAKE_CURRENT_BINARY_DIR}/parsing/stack.hh ${CMAKE_CURRENT_BINARY_DIR}/parser.cc)
+BISON_TARGET(Parser parser.y ${CMAKE_CURRENT_SOURCE_DIR}/parser.cc)
+FLEX_TARGET(Lexer lexer.l ${CMAKE_CURRENT_SOURCE_DIR}/lexer.cc)
+ADD_FLEX_BISON_DEPENDENCY(Lexer Parser)
 
 add_library(NilangParsing
-	lexer.cc
-	parser.cc
-)
-add_dependencies(NilangParsing generate_lexbison)
+	dummy.cc
+	${BISON_Parser_TARGETS}
+	${FLEX_Lexer_TARGETS}
+	)

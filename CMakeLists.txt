@@ -12,6 +12,16 @@ set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(LLVM_BUILD_TOOLS false CACHE BOOL "") 
+set(LLVM_BUILD_TESTS false CACHE BOOL "")
+set(LLVM_INCLUDE_TESTS false CACHE BOOL "")
+set(LLVM_BUILD_EXAMPLES false CACHE BOOL "")
+set(LLVM_INCLUDE_EXAMPLES false CACHE BOOL "")
+
+
+
+add_subdirectory(llvm)
+
 set(LLVM_DIR ./llvm/build/lib/cmake/llvm)
 find_package(LLVM REQUIRED CONFIG)
 
@@ -34,7 +44,6 @@ IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
 ENDIF()
 
 include_directories(${NILANG_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR})
-
 add_subdirectory(ast)
 add_subdirectory(codegen)
 add_subdirectory(driver)

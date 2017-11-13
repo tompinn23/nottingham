@@ -12,7 +12,7 @@ extern YYSTYPE yylval;
 %option yylineno
 %option stack
 %option noyywrap
-%option outfile="lexer.c"
+%option outfile="lexer.cc"
 
 nums [0-9]+
 ident [a-zA-Z][a-zA-Z0-9]+
