@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 #include "tokens.h"
-#include "../ast/AST.h"
+#include "ast/AST.h"
 using namespace std;
 
 
@@ -20,6 +20,7 @@ void yyerror(const char *s);
 
 namespace Ni {
 	class Lexer;
+	class Driver;
 }
 
 %}
@@ -38,17 +39,68 @@ namespace Ni {
 }
 
 %lex-param { Ni::Lexer &lexer }
-
+%lex-param { Ni::Driver &driver }
+%parse-param { Ni::Lexer &lexer }
+%parse-param { Ni::Driver &driver }
 %define parse.trace
 %define parse.error verbose
 %define api.token.prefix {TOKEN_}
 
+// Keywords & Misc
 %token DEF
-%token EOF 0
+%token RETURN
+%token CLASS
+%token PUB
+%token USE
+%token SELF
+%token IF
+%token ELSE
+%token ELIF
+%token SWITCH
+%token CASE
+%token INTERFACE
+%token OVERRIDE
+%token EXTENDS
+%token IMPLEMENTS
 
+%token TYPE
+%token END_STATEMENT
+
+%token LEFTPAR
+%token RIGHTPAR
+%token LEFTBRACE
+%token RIGHTBRACE
+
+%token EOF 0
+// Operators 
+%token MINUS
+%token MINUSEQ
+%token PLUS
+%token MUL
+%token MULEQ
+%token DIV
+%token DIVEQ
+
+%token EQEQ
+%token EQ
+%token NE
+%token NOT
+%token LE
+%token LT
+%token GE
+%token GT
+%token ANDAND
+%token AND
+%token OROR
+%token OR
+
+
+
+// Actual Data Types
 
 %token <long> INT
 %token <double> DOUBLE
+%token <bool> BOOL
 %token <std::string> IDENTIFIER
 %token <std::string> STRING
 

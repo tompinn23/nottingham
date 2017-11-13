@@ -1,17 +1,17 @@
 %{
 #include <iostream>
-#include <fstream>
 #include <string>
-#include "grammar.tab.hh"
-#include "tokens.h"
-using namespace std;;
+#include "parser.hh"
+using namespace std;
 
-extern YYSTYPE yylval;
+#define yyterminate() Ni::Parser::make_EOF()
+
 %}
 
-%option yylineno
-%option stack
+%option nodefault
 %option noyywrap
+%option c++
+%option yyclass="Lexer"
 %option outfile="lexer.cc"
 
 nums [0-9]+
@@ -24,81 +24,73 @@ string  \"[^\n"]+\"
 
 [ \n\t\r] { }
 
-def { return DEF; }
-return { return RETURN; }
-class {return CLASS; }
-pub { return PUB; }
-this { return THIS; }
-if { return IF; }
-else { return ELSE; }
-elif { return ELIF; }
-switch { return SWITCH; }
-case { return CASE; }
-interface { return INTERFACE; }
-override { return OVERRIDE; }
-extends { return EXTENDS; }
-implements { return IMPLEMENTS; }
+def { make_DEF(); }
+return { make_RETURN(); }
+class {make_CLASS(); }
+pub { make_PUB(); }
+use { make_USE(); }
+self { make_SELF(); }
+if { make_IF(); }
+else { make_ELSE(); }
+elif { make_ELIF(); }
+switch { make_SWITCH(); }
+case { make_CASE(); }
+interface { make_INTERFACE(); }
+override { make_OVERRIDE(); }
+extends { make_EXTENDS(); }
+implements { make_IMPLEMENTS(); }
 
-type { return TYPE; }
+type { make_TYPE(); }
 
-; { return END_STATEMENT; }
+; { make_END_STATEMENT(); }
 
-true { yylval.bol = true;
-	return BOOL;
-}
+true { make_BOOL(true); }
 
-false { yylval.bol = false;
-	return BOOL;
-}
+false { make_BOOL(false); }
+
+\(    { make_LEFTPAR(); }
+\)    { make_RIGHTPAR(); }
+\{    { make_LEFTBRACE(); }
+\}    { make_RIGHTBRACE(); }
 
 
--    { return '-'; }
--= { return MINUSEQ; }
-\+   { return '+'; }
-\+=  { return PLUSEQ; }
-\*   { return '*'; }
-\*=  { return MULEQ; }
-\/   { return '/'; }
-\/= { return DIVEQ; }
+-     { make_MINUS(); }
+-=    { make_MINUSEQ(); }
+\+    { make_PLUS(); }
+\+=   { make_PLUSEQ(); }
+\*    { make_MUL(); }
+\*=   { make_MULEQ(); }
+\/    { make_DIV(); }
+\/=   { make_DIVEQ(); }
 
-==    { return EQEQ; }
-=     { return '='; }
-\!=   { return NE; }
-\!    { return '!'; }
-\<=   { return LE; }
-\<    { return '<'; }
-\>=   { return GE; }
-\> { return '>'; }
-&& {return ANDAND; }
-& { return '&'; }
-\|\| { return OROR; }
-\| { return '|'; }
+==    { make_EQEQ(); }
+=     { make_EQ(); }
+\!=   { make_NE(); }
+\!    { make_NOT(); }
+\<=   { make_LE(); }
+\<    { make_LT(); }
+\>=   { make_GE(); }
+\> 	  { make_GT(); }
+&&    {make_ANDAND(); }
+&     { make_AND(); }
+\|\|  { make_OROR(); }
+\|    { make_OR(); }
 
-{nums} {
-	yylval.num = atoi(yytext);
-	return INT;
-}
+{nums} { make_INT(atol(yytext)); }
 
 [0-9]+\.[0-9]* {
-	yylval.dub = atof(yytext);
-	return DOUBLE;
+	make_DOUBLE(atof(yytext);
 }
 
 {ident} {
-	yylval.str = std::string(yytext);
-	return IDENTIFIER;
+	make_IDENTIFIER(std::string(yytext));
 }
 
-{string} {
-	yylval.str = std::string(yytext);
-	return STRING;
-}
+{string} { make_STRING(std::string(yytext)); }
 
 
 
-
-
-<<EOF>> { return 0; }
+<<EOF>> { make_EOF(); }
 
 %%
 
