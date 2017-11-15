@@ -46,6 +46,7 @@
 #include <string>
 
 #include "ast/AST.h"
+#include "codegen/Visitor.h"
 using namespace std;
 
 
@@ -65,7 +66,7 @@ namespace Ni {
 }
 
 
-#line 69 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 70 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -142,7 +143,7 @@ namespace Ni {
 
 #line 9 "parser.y" // lalr1.cc:377
 namespace  Ni  {
-#line 146 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 147 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 
 
@@ -696,7 +697,7 @@ namespace  Ni  {
 
 
     /// Build a parser object.
-     Parser  (Ni::Lexer &lexer_yyarg, Ni::Driver &driver_yyarg);
+     Parser  (Ni::Lexer &lexer_yyarg, Ni::Visitor &visitor_yyarg, Ni::Driver &driver_yyarg);
     virtual ~ Parser  ();
 
     /// Parse.
@@ -778,7 +779,7 @@ namespace  Ni  {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const unsigned char yycheck_[];
+  static const signed char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -898,9 +899,9 @@ namespace  Ni  {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 2,     ///< Last index in yytable_.
+      yylast_ = 47,     ///< Last index in yytable_.
       yynnts_ = 6,  ///< Number of nonterminal symbols.
-      yyfinal_ = 5, ///< Termination state number.
+      yyfinal_ = 7, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 49  ///< Number of tokens.
@@ -909,6 +910,7 @@ namespace  Ni  {
 
     // User arguments.
     Ni::Lexer &lexer;
+    Ni::Visitor &visitor;
     Ni::Driver &driver;
   };
 
@@ -1551,7 +1553,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1555 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 1557 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 
 

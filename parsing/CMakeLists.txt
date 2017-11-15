@@ -13,3 +13,5 @@ add_library(NilangParsing
 	${BISON_Parser_OUTPUTS}
 	${FLEX_Lexer_OUTPUTS}
 	)
+add_dependencies(NilangParsing NilangAST NilangCodegen)
+target_link_libraries(NilangParsing NilangAST NilangCodegen)

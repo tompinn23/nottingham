@@ -19,12 +19,23 @@
 #include <stdlib.h>
 #include <sstream>
 
+
 #include "driver/driver.h"
 using namespace Ni;
 
-Driver::Driver() : lexer(*this), parser(lexer, *this)
+Driver::Driver() : lexer(*this), visitor(), parser(lexer, visitor, *this)
 {
 
+}
+
+Driver::~Driver()
+{
+	
+}
+
+void Driver::AddToList(ASTNode *ptr)
+{
+	ast.push_back(ptr);
 }
 
 int Driver::parse() {

@@ -13,6 +13,7 @@
 #include <string>
 
 #include "ast/AST.h"
+#include "codegen/Visitor.h"
 using namespace std;
 
 
@@ -49,6 +50,8 @@ namespace Ni {
 	static Ni::Parser::symbol_type yylex(Ni::Lexer &lexer, Ni::Driver &driver) {
 		return lexer.get_next_token();
 	}
+	
+	static bool visit = true;
 
 	using namespace Ni;
 }
@@ -56,6 +59,7 @@ namespace Ni {
 %lex-param { Ni::Lexer &lexer }
 %lex-param { Ni::Driver &driver }
 %parse-param { Ni::Lexer &lexer }
+%parse-param { Ni::Visitor &visitor }
 %parse-param { Ni::Driver &driver }
 %define parse.trace
 %define parse.error verbose
@@ -133,7 +137,8 @@ program
 ;
 
 item
-: item_dec
+: item_dec  { visitor.Visit($1, visit); }
+| EOF
 ;
 
 item_dec
@@ -141,10 +146,15 @@ item_dec
 ;
 
 ty
-: %empty
+: IDENTIFIER { $$ = AST::StringToType($1); }
+;
 
-expr: 
-%empty
+expr
+: INT {  $$ = new AST::IntNode($1); }
+| DOUBLE { $$ = new AST::DoubleNode($1); }
+| STRING { $$ = new AST::StringNode($1); }
+| BOOL { $$ = new AST::BoolNode($1); }
+;
 %%
 
 void Ni::Parser::error(const std::string &message)

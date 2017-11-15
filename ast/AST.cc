@@ -13,3 +13,15 @@ ASTNode* AST::DeclarationNode::GetValue()
 {
 	return val;
 }
+
+Types AST::StringToType(std::string str)
+{
+	if(str == "int")
+		return Types::INT;
+	if(str == "double")
+		return Types::DOUBLE;
+	if(str == "bool")
+		return Types::BOOL;
+	if(str == "string")
+		return Types::STRING;
+}

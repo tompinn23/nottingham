@@ -30,7 +30,7 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 // //                    "%code top" blocks.
-#line 37 "parser.y" // lalr1.cc:397
+#line 38 "parser.y" // lalr1.cc:397
 
 	# ifndef YY_NULLPTR
 	#  if defined __cplusplus && 201103L <= __cplusplus
@@ -46,15 +46,17 @@
 	static Ni::Parser::symbol_type yylex(Ni::Lexer &lexer, Ni::Driver &driver) {
 		return lexer.get_next_token();
 	}
+	
+	static bool visit = true;
 
 	using namespace Ni;
 
-#line 53 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:397
+#line 55 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:397
 
 
 // First part of user declarations.
 
-#line 58 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:404
+#line 60 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -68,7 +70,7 @@
 
 // User implementation prologue.
 
-#line 72 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:412
+#line 74 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:412
 
 
 #ifndef YY_
@@ -135,7 +137,7 @@
 
 #line 9 "parser.y" // lalr1.cc:479
 namespace  Ni  {
-#line 139 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:479
+#line 141 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:479
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -176,13 +178,14 @@ namespace  Ni  {
 
 
   /// Build a parser object.
-   Parser :: Parser  (Ni::Lexer &lexer_yyarg, Ni::Driver &driver_yyarg)
+   Parser :: Parser  (Ni::Lexer &lexer_yyarg, Ni::Visitor &visitor_yyarg, Ni::Driver &driver_yyarg)
     :
 #if YYDEBUG
       yydebug_ (false),
       yycdebug_ (&std::cerr),
 #endif
       lexer (lexer_yyarg),
+      visitor (visitor_yyarg),
       driver (driver_yyarg)
   {}
 
@@ -576,14 +579,50 @@ namespace  Ni  {
         {
           switch (yyn)
             {
-  case 4:
+  case 3:
 #line 140 "parser.y" // lalr1.cc:859
+    { visitor.Visit(yystack_[0].value.as< AST::ASTNode* > (), visit); }
+#line 586 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 5:
+#line 145 "parser.y" // lalr1.cc:859
     {yylhs.value.as< AST::ASTNode* > () = new AST::DeclarationNode(yystack_[3].value.as< AST::Types > (), yystack_[2].value.as< std::string > (), yystack_[0].value.as< AST::ASTNode* > ());}
-#line 583 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+#line 592 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 6:
+#line 149 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::Types > () = AST::StringToType(yystack_[0].value.as< std::string > ()); }
+#line 598 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 7:
+#line 153 "parser.y" // lalr1.cc:859
+    {  yylhs.value.as< AST::ASTNode* > () = new AST::IntNode(yystack_[0].value.as< long > ()); }
+#line 604 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 8:
+#line 154 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = new AST::DoubleNode(yystack_[0].value.as< double > ()); }
+#line 610 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 9:
+#line 155 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = new AST::StringNode(yystack_[0].value.as< std::string > ()); }
+#line 616 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+    break;
+
+  case 10:
+#line 156 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = new AST::BoolNode(yystack_[0].value.as< bool > ()); }
+#line 622 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
     break;
 
 
-#line 587 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+#line 626 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -833,62 +872,75 @@ namespace  Ni  {
   }
 
 
-  const signed char  Parser ::yypact_ninf_ = -47;
+  const signed char  Parser ::yypact_ninf_ = -44;
 
   const signed char  Parser ::yytable_ninf_ = -1;
 
   const signed char
    Parser ::yypact_[] =
   {
-     -47,     0,   -47,   -47,   -46,   -47,   -31,   -47,   -47
+       0,   -44,   -44,     4,   -44,   -44,   -41,   -44,   -26,   -43,
+     -44,   -44,   -44,   -44,   -44
   };
 
   const unsigned char
    Parser ::yydefact_[] =
   {
-       5,     0,     2,     3,     0,     1,     0,     6,     4
+       0,     4,     6,     0,     2,     3,     0,     1,     0,     0,
+       7,     8,    10,     9,     5
   };
 
   const signed char
    Parser ::yypgoto_[] =
   {
-     -47,   -47,   -47,   -47,   -47,   -47
+     -44,   -44,   -44,   -44,   -44,   -44
   };
 
   const signed char
    Parser ::yydefgoto_[] =
   {
-      -1,     1,     2,     3,     4,     8
+      -1,     3,     4,     5,     6,    14
   };
 
   const unsigned char
    Parser ::yytable_[] =
   {
-       5,     6,     7
+       1,    10,    11,    12,     7,    13,     8,     9,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     2
   };
 
-  const unsigned char
+  const signed char
    Parser ::yycheck_[] =
   {
-       0,    47,    33
+       0,    44,    45,    46,     0,    48,    47,    33,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    47
   };
 
   const unsigned char
    Parser ::yystos_[] =
   {
-       0,    50,    51,    52,    53,     0,    47,    33,    54
+       0,     0,    47,    50,    51,    52,    53,     0,    47,    33,
+      44,    45,    46,    48,    54
   };
 
   const unsigned char
    Parser ::yyr1_[] =
   {
-       0,    49,    50,    51,    52,    53,    54
+       0,    49,    50,    51,    51,    52,    53,    54,    54,    54,
+      54
   };
 
   const unsigned char
    Parser ::yyr2_[] =
   {
-       0,     2,     1,     1,     4,     0,     0
+       0,     2,     1,     1,     1,     4,     1,     1,     1,     1,
+       1
   };
 
 
@@ -912,7 +964,8 @@ namespace  Ni  {
   const unsigned char
    Parser ::yyrline_[] =
   {
-       0,   132,   132,   136,   140,   144,   147
+       0,   136,   136,   140,   141,   145,   149,   153,   154,   155,
+     156
   };
 
   // Print the state stack on the debug stream.
@@ -947,8 +1000,8 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:1167
 } //  Ni 
-#line 951 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:1167
-#line 148 "parser.y" // lalr1.cc:1168
+#line 1004 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:1167
+#line 158 "parser.y" // lalr1.cc:1168
 
 
 void Ni::Parser::error(const std::string &message)

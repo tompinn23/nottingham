@@ -6,14 +6,14 @@
 #include "driver/driver.h"
 using namespace llvm;
 using namespace std;
-
+using namespace Ni;
 
 int main(int argc, char** argsv)
 {
 	ifstream* ifs = new ifstream();
-	std::unique_ptr<Ni::Driver> driver(new Ni::Driver());
+	Driver drive;
 	ifs->open("test.ni", ifstream::in);
-	driver->SwitchStream(ifs);
+	drive.SwitchStream(ifs);
 	delete ifs;
-	return driver->parse();
+	return drive.parse();
 }
