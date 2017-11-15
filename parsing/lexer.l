@@ -1,10 +1,12 @@
 %{
-#include <iostream>
-#include <string>
-#include "parser.hh"
-using namespace std;
+	#include <iostream>
+	#include <cstdlib>
+	#include "parsing/lexer.h"
+	#include "parser.hh"
 
-#define yyterminate() Ni::Parser::make_EOF()
+	using namespace std;
+
+	#define yyterminate() return Ni::Parser::make_EOF();
 
 %}
 
@@ -12,85 +14,84 @@ using namespace std;
 %option noyywrap
 %option c++
 %option yyclass="Lexer"
-%option outfile="lexer.cc"
+%option prefix="Ni_"
 
 nums [0-9]+
 ident [a-zA-Z][a-zA-Z0-9]+
 string  \"[^\n"]+\"
-
 
 %%
 
 
 [ \n\t\r] { }
 
-def { make_DEF(); }
-return { make_RETURN(); }
-class {make_CLASS(); }
-pub { make_PUB(); }
-use { make_USE(); }
-self { make_SELF(); }
-if { make_IF(); }
-else { make_ELSE(); }
-elif { make_ELIF(); }
-switch { make_SWITCH(); }
-case { make_CASE(); }
-interface { make_INTERFACE(); }
-override { make_OVERRIDE(); }
-extends { make_EXTENDS(); }
-implements { make_IMPLEMENTS(); }
+def { return Ni::Parser::make_DEF(); }
+return { return Ni::Parser::make_RETURN(); }
+class {return Ni::Parser::make_CLASS(); }
+pub { return Ni::Parser::make_PUB(); }
+use { return Ni::Parser::make_USE(); }
+self { return Ni::Parser::make_SELF(); }
+if { return Ni::Parser::make_IF(); }
+else { return Ni::Parser::make_ELSE(); }
+elif { return Ni::Parser::make_ELIF(); }
+switch { return Ni::Parser::make_SWITCH(); }
+case { return Ni::Parser::make_CASE(); }
+interface { return Ni::Parser::make_INTERFACE(); }
+override { return Ni::Parser::make_OVERRIDE(); }
+extends { return Ni::Parser::make_EXTENDS(); }
+implements { return Ni::Parser::make_IMPLEMENTS(); }
 
-type { make_TYPE(); }
+type { return Ni::Parser::make_TYPE(); }
 
-; { make_END_STATEMENT(); }
+; { return Ni::Parser::make_END_STATEMENT(); }
 
-true { make_BOOL(true); }
+true { return Ni::Parser::make_BOOL(true); }
 
-false { make_BOOL(false); }
+false { return Ni::Parser::make_BOOL(false); }
 
-\(    { make_LEFTPAR(); }
-\)    { make_RIGHTPAR(); }
-\{    { make_LEFTBRACE(); }
-\}    { make_RIGHTBRACE(); }
+\(    { return Ni::Parser::make_LEFTPAR(); }
+\)    { return Ni::Parser::make_RIGHTPAR(); }
+\{    { return Ni::Parser::make_LEFTBRACE(); }
+\}    { return Ni::Parser::make_RIGHTBRACE(); }
 
 
--     { make_MINUS(); }
--=    { make_MINUSEQ(); }
-\+    { make_PLUS(); }
-\+=   { make_PLUSEQ(); }
-\*    { make_MUL(); }
-\*=   { make_MULEQ(); }
-\/    { make_DIV(); }
-\/=   { make_DIVEQ(); }
+-     { return Ni::Parser::make_MINUS(); }
+-=    { return Ni::Parser::make_MINUSEQ(); }
+\+    { return Ni::Parser::make_PLUS(); }
+\+=   { return Ni::Parser::make_PLUSEQ(); }
+\*    { return Ni::Parser::make_MUL(); }
+\*=   { return Ni::Parser::make_MULEQ(); }
+\/    { return Ni::Parser::make_DIV(); }
+\/=   { return Ni::Parser::make_DIVEQ(); }
 
-==    { make_EQEQ(); }
-=     { make_EQ(); }
-\!=   { make_NE(); }
-\!    { make_NOT(); }
-\<=   { make_LE(); }
-\<    { make_LT(); }
-\>=   { make_GE(); }
-\> 	  { make_GT(); }
-&&    {make_ANDAND(); }
-&     { make_AND(); }
-\|\|  { make_OROR(); }
-\|    { make_OR(); }
+==    { return Ni::Parser::make_EQEQ(); }
+=     { return Ni::Parser::make_EQ(); }
+\!=   { return Ni::Parser::make_NE(); }
+\!    { return Ni::Parser::make_NOT(); }
+\<=   { return Ni::Parser::make_LE(); }
+\<    { return Ni::Parser::make_LT(); }
+\>=   { return Ni::Parser::make_GE(); }
+\> 	  { return Ni::Parser::make_GT(); }
+&&    {return Ni::Parser::make_ANDAND(); }
+&     { return Ni::Parser::make_AND(); }
+\|\|  { return Ni::Parser::make_OROR(); }
+\|    { return Ni::Parser::make_OR(); }
 
-{nums} { make_INT(atol(yytext)); }
+[0-9] { return Ni::Parser::make_INT(atol(yytext)); }
 
 [0-9]+\.[0-9]* {
-	make_DOUBLE(atof(yytext);
+	return Ni::Parser::make_DOUBLE(atof(yytext));
 }
 
 {ident} {
-	make_IDENTIFIER(std::string(yytext));
+	return Ni::Parser::make_IDENTIFIER(std::string(yytext));
 }
 
-{string} { make_STRING(std::string(yytext)); }
+{string} { return Ni::Parser::make_STRING(std::string(yytext)); }
 
+. { cout << "Couldn't lex: " << yytext << endl; }
 
-
-<<EOF>> { make_EOF(); }
+<<EOF>> { return Ni::Parser::make_EOF(); }
 
 %%
 

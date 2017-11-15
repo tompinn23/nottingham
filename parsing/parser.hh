@@ -40,24 +40,32 @@
 #ifndef YY_YY_HOME_TOM_NILANG_PARSING_PARSER_HH_INCLUDED
 # define YY_YY_HOME_TOM_NILANG_PARSING_PARSER_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 11 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:377
+#line 11 "parser.y" // lalr1.cc:377
 
 #include <iostream>
 #include <string>
-#include "tokens.h"
-#include "../ast/AST.h"
+
+#include "ast/AST.h"
 using namespace std;
 
+
+#ifndef YY_NULLPTR
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULLPTR nullptr
+#  else
+#   define YY_NULLPTR 0
+#  endif
+# endif
 
 void yyerror(const char *s);
 
 namespace Ni {
 	class Lexer;
+	class Driver;
 }
 
-%
 
-#line 61 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 69 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -132,9 +140,9 @@ namespace Ni {
 # define YYDEBUG 1
 #endif
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:377
+#line 9 "parser.y" // lalr1.cc:377
 namespace  Ni  {
-#line 138 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 146 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 
 
@@ -303,20 +311,23 @@ namespace  Ni  {
     {
       // item_dec
       // expr
-      char dummy1[sizeof(AST::ASTNode)];
+      char dummy1[sizeof(AST::ASTNode*)];
 
       // ty
       char dummy2[sizeof(AST::Types)];
 
+      // BOOL
+      char dummy3[sizeof(bool)];
+
       // DOUBLE
-      char dummy3[sizeof(double)];
+      char dummy4[sizeof(double)];
 
       // INT
-      char dummy4[sizeof(long)];
+      char dummy5[sizeof(long)];
 
       // IDENTIFIER
       // STRING
-      char dummy5[sizeof(std::string)];
+      char dummy6[sizeof(std::string)];
 };
 
     /// Symbol semantic values.
@@ -338,10 +349,51 @@ namespace  Ni  {
       {
         TOKEN_EOF = 0,
         TOKEN_DEF = 258,
-        TOKEN_INT = 259,
-        TOKEN_DOUBLE = 260,
-        TOKEN_IDENTIFIER = 261,
-        TOKEN_STRING = 262
+        TOKEN_RETURN = 259,
+        TOKEN_CLASS = 260,
+        TOKEN_PUB = 261,
+        TOKEN_USE = 262,
+        TOKEN_SELF = 263,
+        TOKEN_IF = 264,
+        TOKEN_ELSE = 265,
+        TOKEN_ELIF = 266,
+        TOKEN_SWITCH = 267,
+        TOKEN_CASE = 268,
+        TOKEN_INTERFACE = 269,
+        TOKEN_OVERRIDE = 270,
+        TOKEN_EXTENDS = 271,
+        TOKEN_IMPLEMENTS = 272,
+        TOKEN_TYPE = 273,
+        TOKEN_END_STATEMENT = 274,
+        TOKEN_LEFTPAR = 275,
+        TOKEN_RIGHTPAR = 276,
+        TOKEN_LEFTBRACE = 277,
+        TOKEN_RIGHTBRACE = 278,
+        TOKEN_MINUS = 279,
+        TOKEN_MINUSEQ = 280,
+        TOKEN_PLUS = 281,
+        TOKEN_PLUSEQ = 282,
+        TOKEN_MUL = 283,
+        TOKEN_MULEQ = 284,
+        TOKEN_DIV = 285,
+        TOKEN_DIVEQ = 286,
+        TOKEN_EQEQ = 287,
+        TOKEN_EQ = 288,
+        TOKEN_NE = 289,
+        TOKEN_NOT = 290,
+        TOKEN_LE = 291,
+        TOKEN_LT = 292,
+        TOKEN_GE = 293,
+        TOKEN_GT = 294,
+        TOKEN_ANDAND = 295,
+        TOKEN_AND = 296,
+        TOKEN_OROR = 297,
+        TOKEN_OR = 298,
+        TOKEN_INT = 299,
+        TOKEN_DOUBLE = 300,
+        TOKEN_BOOL = 301,
+        TOKEN_IDENTIFIER = 302,
+        TOKEN_STRING = 303
       };
     };
 
@@ -379,9 +431,11 @@ namespace  Ni  {
 
   basic_symbol (typename Base::kind_type t);
 
-  basic_symbol (typename Base::kind_type t, const AST::ASTNode v);
+  basic_symbol (typename Base::kind_type t, const AST::ASTNode* v);
 
   basic_symbol (typename Base::kind_type t, const AST::Types v);
+
+  basic_symbol (typename Base::kind_type t, const bool v);
 
   basic_symbol (typename Base::kind_type t, const double v);
 
@@ -462,11 +516,175 @@ namespace  Ni  {
 
     static inline
     symbol_type
+    make_RETURN ();
+
+    static inline
+    symbol_type
+    make_CLASS ();
+
+    static inline
+    symbol_type
+    make_PUB ();
+
+    static inline
+    symbol_type
+    make_USE ();
+
+    static inline
+    symbol_type
+    make_SELF ();
+
+    static inline
+    symbol_type
+    make_IF ();
+
+    static inline
+    symbol_type
+    make_ELSE ();
+
+    static inline
+    symbol_type
+    make_ELIF ();
+
+    static inline
+    symbol_type
+    make_SWITCH ();
+
+    static inline
+    symbol_type
+    make_CASE ();
+
+    static inline
+    symbol_type
+    make_INTERFACE ();
+
+    static inline
+    symbol_type
+    make_OVERRIDE ();
+
+    static inline
+    symbol_type
+    make_EXTENDS ();
+
+    static inline
+    symbol_type
+    make_IMPLEMENTS ();
+
+    static inline
+    symbol_type
+    make_TYPE ();
+
+    static inline
+    symbol_type
+    make_END_STATEMENT ();
+
+    static inline
+    symbol_type
+    make_LEFTPAR ();
+
+    static inline
+    symbol_type
+    make_RIGHTPAR ();
+
+    static inline
+    symbol_type
+    make_LEFTBRACE ();
+
+    static inline
+    symbol_type
+    make_RIGHTBRACE ();
+
+    static inline
+    symbol_type
+    make_MINUS ();
+
+    static inline
+    symbol_type
+    make_MINUSEQ ();
+
+    static inline
+    symbol_type
+    make_PLUS ();
+
+    static inline
+    symbol_type
+    make_PLUSEQ ();
+
+    static inline
+    symbol_type
+    make_MUL ();
+
+    static inline
+    symbol_type
+    make_MULEQ ();
+
+    static inline
+    symbol_type
+    make_DIV ();
+
+    static inline
+    symbol_type
+    make_DIVEQ ();
+
+    static inline
+    symbol_type
+    make_EQEQ ();
+
+    static inline
+    symbol_type
+    make_EQ ();
+
+    static inline
+    symbol_type
+    make_NE ();
+
+    static inline
+    symbol_type
+    make_NOT ();
+
+    static inline
+    symbol_type
+    make_LE ();
+
+    static inline
+    symbol_type
+    make_LT ();
+
+    static inline
+    symbol_type
+    make_GE ();
+
+    static inline
+    symbol_type
+    make_GT ();
+
+    static inline
+    symbol_type
+    make_ANDAND ();
+
+    static inline
+    symbol_type
+    make_AND ();
+
+    static inline
+    symbol_type
+    make_OROR ();
+
+    static inline
+    symbol_type
+    make_OR ();
+
+    static inline
+    symbol_type
     make_INT (const long& v);
 
     static inline
     symbol_type
     make_DOUBLE (const double& v);
+
+    static inline
+    symbol_type
+    make_BOOL (const bool& v);
 
     static inline
     symbol_type
@@ -478,7 +696,7 @@ namespace  Ni  {
 
 
     /// Build a parser object.
-     Parser  ();
+     Parser  (Ni::Lexer &lexer_yyarg, Ni::Driver &driver_yyarg);
     virtual ~ Parser  ();
 
     /// Parse.
@@ -685,10 +903,13 @@ namespace  Ni  {
       yyfinal_ = 5, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 9  ///< Number of tokens.
+      yyntokens_ = 49  ///< Number of tokens.
     };
 
 
+    // User arguments.
+    Ni::Lexer &lexer;
+    Ni::Driver &driver;
   };
 
   // Symbol number corresponding to token number t.
@@ -706,7 +927,7 @@ namespace  Ni  {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     8,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -726,9 +947,13 @@ namespace  Ni  {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46,    47,    48
     };
-    const unsigned int user_token_number_max_ = 262;
+    const unsigned int user_token_number_max_ = 303;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -759,25 +984,29 @@ namespace  Ni  {
   {
       switch (other.type_get ())
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.copy< AST::ASTNode > (other.value);
+      case 52: // item_dec
+      case 54: // expr
+        value.copy< AST::ASTNode* > (other.value);
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.copy< AST::Types > (other.value);
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.copy< bool > (other.value);
+        break;
+
+      case 45: // DOUBLE
         value.copy< double > (other.value);
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.copy< long > (other.value);
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.copy< std::string > (other.value);
         break;
 
@@ -797,25 +1026,29 @@ namespace  Ni  {
     (void) v;
       switch (this->type_get ())
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.copy< AST::ASTNode > (v);
+      case 52: // item_dec
+      case 54: // expr
+        value.copy< AST::ASTNode* > (v);
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.copy< AST::Types > (v);
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.copy< bool > (v);
+        break;
+
+      case 45: // DOUBLE
         value.copy< double > (v);
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.copy< long > (v);
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.copy< std::string > (v);
         break;
 
@@ -834,13 +1067,19 @@ namespace  Ni  {
   {}
 
   template <typename Base>
-   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::ASTNode v)
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::ASTNode* v)
     : Base (t)
     , value (v)
   {}
 
   template <typename Base>
    Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::Types v)
+    : Base (t)
+    , value (v)
+  {}
+
+  template <typename Base>
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const bool v)
     : Base (t)
     , value (v)
   {}
@@ -889,25 +1128,29 @@ namespace  Ni  {
     // Type destructor.
     switch (yytype)
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.template destroy< AST::ASTNode > ();
+      case 52: // item_dec
+      case 54: // expr
+        value.template destroy< AST::ASTNode* > ();
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.template destroy< AST::Types > ();
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.template destroy< bool > ();
+        break;
+
+      case 45: // DOUBLE
         value.template destroy< double > ();
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.template destroy< long > ();
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.template destroy< std::string > ();
         break;
 
@@ -934,25 +1177,29 @@ namespace  Ni  {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.move< AST::ASTNode > (s.value);
+      case 52: // item_dec
+      case 54: // expr
+        value.move< AST::ASTNode* > (s.value);
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.move< AST::Types > (s.value);
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.move< bool > (s.value);
+        break;
+
+      case 45: // DOUBLE
         value.move< double > (s.value);
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.move< long > (s.value);
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.move< std::string > (s.value);
         break;
 
@@ -1010,7 +1257,11 @@ namespace  Ni  {
     const unsigned short int
     yytoken_number_[] =
     {
-       0,   256,   257,   258,   259,   260,   261,   262,    61
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
+     295,   296,   297,   298,   299,   300,   301,   302,   303
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1028,6 +1279,246 @@ namespace  Ni  {
   }
 
    Parser ::symbol_type
+   Parser ::make_RETURN ()
+  {
+    return symbol_type (token::TOKEN_RETURN);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_CLASS ()
+  {
+    return symbol_type (token::TOKEN_CLASS);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_PUB ()
+  {
+    return symbol_type (token::TOKEN_PUB);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_USE ()
+  {
+    return symbol_type (token::TOKEN_USE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_SELF ()
+  {
+    return symbol_type (token::TOKEN_SELF);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_IF ()
+  {
+    return symbol_type (token::TOKEN_IF);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_ELSE ()
+  {
+    return symbol_type (token::TOKEN_ELSE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_ELIF ()
+  {
+    return symbol_type (token::TOKEN_ELIF);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_SWITCH ()
+  {
+    return symbol_type (token::TOKEN_SWITCH);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_CASE ()
+  {
+    return symbol_type (token::TOKEN_CASE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_INTERFACE ()
+  {
+    return symbol_type (token::TOKEN_INTERFACE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_OVERRIDE ()
+  {
+    return symbol_type (token::TOKEN_OVERRIDE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_EXTENDS ()
+  {
+    return symbol_type (token::TOKEN_EXTENDS);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_IMPLEMENTS ()
+  {
+    return symbol_type (token::TOKEN_IMPLEMENTS);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_TYPE ()
+  {
+    return symbol_type (token::TOKEN_TYPE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_END_STATEMENT ()
+  {
+    return symbol_type (token::TOKEN_END_STATEMENT);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_LEFTPAR ()
+  {
+    return symbol_type (token::TOKEN_LEFTPAR);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_RIGHTPAR ()
+  {
+    return symbol_type (token::TOKEN_RIGHTPAR);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_LEFTBRACE ()
+  {
+    return symbol_type (token::TOKEN_LEFTBRACE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_RIGHTBRACE ()
+  {
+    return symbol_type (token::TOKEN_RIGHTBRACE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_MINUS ()
+  {
+    return symbol_type (token::TOKEN_MINUS);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_MINUSEQ ()
+  {
+    return symbol_type (token::TOKEN_MINUSEQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_PLUS ()
+  {
+    return symbol_type (token::TOKEN_PLUS);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_PLUSEQ ()
+  {
+    return symbol_type (token::TOKEN_PLUSEQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_MUL ()
+  {
+    return symbol_type (token::TOKEN_MUL);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_MULEQ ()
+  {
+    return symbol_type (token::TOKEN_MULEQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_DIV ()
+  {
+    return symbol_type (token::TOKEN_DIV);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_DIVEQ ()
+  {
+    return symbol_type (token::TOKEN_DIVEQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_EQEQ ()
+  {
+    return symbol_type (token::TOKEN_EQEQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_EQ ()
+  {
+    return symbol_type (token::TOKEN_EQ);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_NE ()
+  {
+    return symbol_type (token::TOKEN_NE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_NOT ()
+  {
+    return symbol_type (token::TOKEN_NOT);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_LE ()
+  {
+    return symbol_type (token::TOKEN_LE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_LT ()
+  {
+    return symbol_type (token::TOKEN_LT);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_GE ()
+  {
+    return symbol_type (token::TOKEN_GE);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_GT ()
+  {
+    return symbol_type (token::TOKEN_GT);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_ANDAND ()
+  {
+    return symbol_type (token::TOKEN_ANDAND);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_AND ()
+  {
+    return symbol_type (token::TOKEN_AND);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_OROR ()
+  {
+    return symbol_type (token::TOKEN_OROR);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_OR ()
+  {
+    return symbol_type (token::TOKEN_OR);
+  }
+
+   Parser ::symbol_type
    Parser ::make_INT (const long& v)
   {
     return symbol_type (token::TOKEN_INT, v);
@@ -1037,6 +1528,12 @@ namespace  Ni  {
    Parser ::make_DOUBLE (const double& v)
   {
     return symbol_type (token::TOKEN_DOUBLE, v);
+  }
+
+   Parser ::symbol_type
+   Parser ::make_BOOL (const bool& v)
+  {
+    return symbol_type (token::TOKEN_BOOL, v);
   }
 
    Parser ::symbol_type
@@ -1052,9 +1549,9 @@ namespace  Ni  {
   }
 
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:377
+#line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1058 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
+#line 1555 "/home/tom/nilang/parsing/parser.hh" // lalr1.cc:377
 
 
 

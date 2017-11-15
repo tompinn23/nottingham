@@ -5,7 +5,7 @@
 
 #include "ASTBaseNode.h"
 #include "ASTTypes.h"
-#include "../codegen/Visitor.h"
+#include "codegen/Visitor.h"
 
 
 namespace AST
@@ -21,14 +21,13 @@ enum Types
 
 class DeclarationNode : public ASTNode {
 public:
-	DeclarationNode(Types ty, std::string name, IntNode* v);
-	DeclarationNode(Types ty, std::string name, DoubleNode* v);
-	DeclarationNode(Types ty, std::string name, StringNode* v);
+	DeclarationNode(Types ty, std::string name, ASTNode *v);
 	ASTNode* GetValue();
 
 private:
+	std::string varName;
 	Types varType;
-	ASTNode* val;
+	ASTNode *val;
 };
 
 };

@@ -11,10 +11,18 @@
 {
 #include <iostream>
 #include <string>
-#include "tokens.h"
+
 #include "ast/AST.h"
 using namespace std;
 
+
+#ifndef YY_NULLPTR
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULLPTR nullptr
+#  else
+#   define YY_NULLPTR 0
+#  endif
+# endif
 
 void yyerror(const char *s);
 
@@ -23,15 +31,22 @@ namespace Ni {
 	class Driver;
 }
 
-%}
+}
 
 %code top
 {
+	# ifndef YY_NULLPTR
+	#  if defined __cplusplus && 201103L <= __cplusplus
+	#   define YY_NULLPTR nullptr
+	#  else
+	#   define YY_NULLPTR 0
+	#  endif
+	# endif
 	#include <iostream>
-	#include "lexer.h"
-	#include "parser.h"
+	#include "parsing/lexer.h"
+	#include "parser.hh"
 
-	static Ni::Parser::symbol_type yylex(Ni:Lexer &lexer {
+	static Ni::Parser::symbol_type yylex(Ni::Lexer &lexer, Ni::Driver &driver) {
 		return lexer.get_next_token();
 	}
 
@@ -47,7 +62,7 @@ namespace Ni {
 %define api.token.prefix {TOKEN_}
 
 // Keywords & Misc
-%token DEF
+%token DEF 
 %token RETURN
 %token CLASS
 %token PUB
@@ -76,6 +91,7 @@ namespace Ni {
 %token MINUS
 %token MINUSEQ
 %token PLUS
+%token PLUSEQ
 %token MUL
 %token MULEQ
 %token DIV
@@ -105,8 +121,8 @@ namespace Ni {
 %token <std::string> STRING
 
 %type <AST::Types> ty
-%type <AST::ASTNode> item_dec
-%type <AST::ASTNode> expr
+%type <AST::ASTNode*> item_dec
+%type <AST::ASTNode*> expr
 
 %start program
 
@@ -121,7 +137,7 @@ item
 ;
 
 item_dec
-: ty IDENTIFIER '=' expr {$$ = AST::DeclarationNode($1, $2);}
+: ty IDENTIFIER EQ expr {$$ = new AST::DeclarationNode($1, $2, $4);}
 ;
 
 ty

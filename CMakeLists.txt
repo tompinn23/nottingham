@@ -17,8 +17,7 @@ set(LLVM_BUILD_TESTS false CACHE BOOL "")
 set(LLVM_INCLUDE_TESTS false CACHE BOOL "")
 set(LLVM_BUILD_EXAMPLES false CACHE BOOL "")
 set(LLVM_INCLUDE_EXAMPLES false CACHE BOOL "")
-
-
+set(LLVM_TARGETS_TO_BUILD "X86" CACHE STRING "")
 
 add_subdirectory(llvm)
 
@@ -42,11 +41,15 @@ IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
     ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
   )
 ENDIF()
-
-include_directories(${NILANG_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR})
+include_directories(${NILANG_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR} ${BISON_Parser_OUTPUT_HEADER} ${CMAKE_SOURCE_DIR}/parsing)
+add_subdirectory(parsing)
 add_subdirectory(ast)
 add_subdirectory(codegen)
 add_subdirectory(driver)
-add_subdirectory(parsing)
+
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+  message(STATUS "dir='${dir}'")
+endforeach()
 
 

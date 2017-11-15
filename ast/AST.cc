@@ -2,33 +2,14 @@
 
 using namespace AST;
 
-AST::DeclarationNode::DeclarationNode(Types ty, std::string name, IntNode * v)
+AST::DeclarationNode::DeclarationNode(Types ty, std::string name, ASTNode *v)
 {
 	varType = ty;
+	varName = name;
 	val = v;
 }
 
-AST::DeclarationNode::DeclarationNode(Types ty, std::string name, DoubleNode * v)
+ASTNode* AST::DeclarationNode::GetValue()
 {
-	varType = ty;
-	val = v;
-}
-
-AST::DeclarationNode::DeclarationNode(Types ty, std::string name, StringNode * v)
-{
-	varType = ty;
-	val = v;
-}
-
-ASTNode * AST::DeclarationNode::GetValue()
-{
-	switch (varType)
-	{
-	case Types::INT:
-		return (IntNode*)val;
-	case Types::DOUBLE:
-		return (DoubleNode*)val;
-	case Types::STRING:
-		return (StringNode*)val;
-	}
+	return val;
 }

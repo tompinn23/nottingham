@@ -30,24 +30,31 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 // //                    "%code top" blocks.
-#line 28 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:397
+#line 37 "parser.y" // lalr1.cc:397
 
+	# ifndef YY_NULLPTR
+	#  if defined __cplusplus && 201103L <= __cplusplus
+	#   define YY_NULLPTR nullptr
+	#  else
+	#   define YY_NULLPTR 0
+	#  endif
+	# endif
 	#include <iostream>
-	#include "lexer.h"
-	#include "parser.h"
+	#include "parsing/lexer.h"
+	#include "parser.hh"
 
-	static Ni::Parser::symbol_type yylex(Ni:Lexer &lexer {
+	static Ni::Parser::symbol_type yylex(Ni::Lexer &lexer, Ni::Driver &driver) {
 		return lexer.get_next_token();
 	}
 
 	using namespace Ni;
 
-#line 46 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:397
+#line 53 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:397
 
 
 // First part of user declarations.
 
-#line 51 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:404
+#line 58 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -61,7 +68,7 @@
 
 // User implementation prologue.
 
-#line 65 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:412
+#line 72 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:412
 
 
 #ifndef YY_
@@ -126,9 +133,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:479
+#line 9 "parser.y" // lalr1.cc:479
 namespace  Ni  {
-#line 132 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:479
+#line 139 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:479
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -169,11 +176,14 @@ namespace  Ni  {
 
 
   /// Build a parser object.
-   Parser :: Parser  ()
+   Parser :: Parser  (Ni::Lexer &lexer_yyarg, Ni::Driver &driver_yyarg)
+    :
 #if YYDEBUG
-     :yydebug_ (false),
-      yycdebug_ (&std::cerr)
+      yydebug_ (false),
+      yycdebug_ (&std::cerr),
 #endif
+      lexer (lexer_yyarg),
+      driver (driver_yyarg)
   {}
 
    Parser ::~ Parser  ()
@@ -238,25 +248,29 @@ namespace  Ni  {
   {
       switch (that.type_get ())
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.move< AST::ASTNode > (that.value);
+      case 52: // item_dec
+      case 54: // expr
+        value.move< AST::ASTNode* > (that.value);
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.move< AST::Types > (that.value);
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.move< bool > (that.value);
+        break;
+
+      case 45: // DOUBLE
         value.move< double > (that.value);
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.move< long > (that.value);
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.move< std::string > (that.value);
         break;
 
@@ -275,25 +289,29 @@ namespace  Ni  {
     state = that.state;
       switch (that.type_get ())
     {
-      case 12: // item_dec
-      case 14: // expr
-        value.copy< AST::ASTNode > (that.value);
+      case 52: // item_dec
+      case 54: // expr
+        value.copy< AST::ASTNode* > (that.value);
         break;
 
-      case 13: // ty
+      case 53: // ty
         value.copy< AST::Types > (that.value);
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        value.copy< bool > (that.value);
+        break;
+
+      case 45: // DOUBLE
         value.copy< double > (that.value);
         break;
 
-      case 4: // INT
+      case 44: // INT
         value.copy< long > (that.value);
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         value.copy< std::string > (that.value);
         break;
 
@@ -463,7 +481,7 @@ namespace  Ni  {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            symbol_type yylookahead (yylex (lexer));
+            symbol_type yylookahead (yylex (lexer, driver));
             yyla.move (yylookahead);
           }
         catch (const syntax_error& yyexc)
@@ -520,25 +538,29 @@ namespace  Ni  {
          when using variants.  */
         switch (yyr1_[yyn])
     {
-      case 12: // item_dec
-      case 14: // expr
-        yylhs.value.build< AST::ASTNode > ();
+      case 52: // item_dec
+      case 54: // expr
+        yylhs.value.build< AST::ASTNode* > ();
         break;
 
-      case 13: // ty
+      case 53: // ty
         yylhs.value.build< AST::Types > ();
         break;
 
-      case 5: // DOUBLE
+      case 46: // BOOL
+        yylhs.value.build< bool > ();
+        break;
+
+      case 45: // DOUBLE
         yylhs.value.build< double > ();
         break;
 
-      case 4: // INT
+      case 44: // INT
         yylhs.value.build< long > ();
         break;
 
-      case 6: // IDENTIFIER
-      case 7: // STRING
+      case 47: // IDENTIFIER
+      case 48: // STRING
         yylhs.value.build< std::string > ();
         break;
 
@@ -555,13 +577,13 @@ namespace  Ni  {
           switch (yyn)
             {
   case 4:
-#line 72 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:859
-    {yylhs.value.as< AST::ASTNode > () = AST::DeclarationNode(yystack_[3].value.as< AST::Types > (), yystack_[2].value.as< std::string > ());}
-#line 561 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+#line 140 "parser.y" // lalr1.cc:859
+    {yylhs.value.as< AST::ASTNode* > () = new AST::DeclarationNode(yystack_[3].value.as< AST::Types > (), yystack_[2].value.as< std::string > (), yystack_[0].value.as< AST::ASTNode* > ());}
+#line 583 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
     break;
 
 
-#line 565 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
+#line 587 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -811,14 +833,14 @@ namespace  Ni  {
   }
 
 
-  const signed char  Parser ::yypact_ninf_ = -7;
+  const signed char  Parser ::yypact_ninf_ = -47;
 
   const signed char  Parser ::yytable_ninf_ = -1;
 
   const signed char
    Parser ::yypact_[] =
   {
-      -7,     0,    -7,    -7,    -5,    -7,    -6,    -7,    -7
+     -47,     0,   -47,   -47,   -46,   -47,   -31,   -47,   -47
   };
 
   const unsigned char
@@ -830,7 +852,7 @@ namespace  Ni  {
   const signed char
    Parser ::yypgoto_[] =
   {
-      -7,    -7,    -7,    -7,    -7,    -7
+     -47,   -47,   -47,   -47,   -47,   -47
   };
 
   const signed char
@@ -848,19 +870,19 @@ namespace  Ni  {
   const unsigned char
    Parser ::yycheck_[] =
   {
-       0,     6,     8
+       0,    47,    33
   };
 
   const unsigned char
    Parser ::yystos_[] =
   {
-       0,    10,    11,    12,    13,     0,     6,     8,    14
+       0,    50,    51,    52,    53,     0,    47,    33,    54
   };
 
   const unsigned char
    Parser ::yyr1_[] =
   {
-       0,     9,    10,    11,    12,    13,    14
+       0,    49,    50,    51,    52,    53,    54
   };
 
   const unsigned char
@@ -876,15 +898,21 @@ namespace  Ni  {
   const char*
   const  Parser ::yytname_[] =
   {
-  "EOF", "error", "$undefined", "DEF", "INT", "DOUBLE", "IDENTIFIER",
-  "STRING", "'='", "$accept", "program", "item", "item_dec", "ty", "expr", YY_NULLPTR
+  "EOF", "error", "$undefined", "DEF", "RETURN", "CLASS", "PUB", "USE",
+  "SELF", "IF", "ELSE", "ELIF", "SWITCH", "CASE", "INTERFACE", "OVERRIDE",
+  "EXTENDS", "IMPLEMENTS", "TYPE", "END_STATEMENT", "LEFTPAR", "RIGHTPAR",
+  "LEFTBRACE", "RIGHTBRACE", "MINUS", "MINUSEQ", "PLUS", "PLUSEQ", "MUL",
+  "MULEQ", "DIV", "DIVEQ", "EQEQ", "EQ", "NE", "NOT", "LE", "LT", "GE",
+  "GT", "ANDAND", "AND", "OROR", "OR", "INT", "DOUBLE", "BOOL",
+  "IDENTIFIER", "STRING", "$accept", "program", "item", "item_dec", "ty",
+  "expr", YY_NULLPTR
   };
 
 #if YYDEBUG
   const unsigned char
    Parser ::yyrline_[] =
   {
-       0,    64,    64,    68,    72,    76,    79
+       0,   132,   132,   136,   140,   144,   147
   };
 
   // Print the state stack on the debug stream.
@@ -917,10 +945,10 @@ namespace  Ni  {
 #endif // YYDEBUG
 
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:1167
+#line 9 "parser.y" // lalr1.cc:1167
 } //  Ni 
-#line 923 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:1167
-#line 80 "/home/tom/nilang/parsing/parser.y" // lalr1.cc:1168
+#line 951 "/home/tom/nilang/parsing/parser.cc" // lalr1.cc:1167
+#line 148 "parser.y" // lalr1.cc:1168
 
 
 void Ni::Parser::error(const std::string &message)

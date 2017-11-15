@@ -40,7 +40,7 @@
 
 # include <vector>
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // stack.hh:132
+#line 9 "parser.y" // stack.hh:132
 namespace  Ni  {
 #line 46 "/home/tom/nilang/parsing/stack.hh" // stack.hh:132
   template <class T, class S = std::vector<T> >
@@ -150,7 +150,7 @@ namespace  Ni  {
     unsigned int range_;
   };
 
-#line 9 "/home/tom/nilang/parsing/parser.y" // stack.hh:132
+#line 9 "parser.y" // stack.hh:132
 } //  Ni 
 #line 156 "/home/tom/nilang/parsing/stack.hh" // stack.hh:132
 
