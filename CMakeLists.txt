@@ -21,7 +21,7 @@ set(LLVM_TARGETS_TO_BUILD "X86" CACHE STRING "")
 
 add_subdirectory(llvm)
 
-set(LLVM_DIR ./llvm/build/lib/cmake/llvm)
+set(LLVM_DIR ./build/llvm/lib/cmake/llvm)
 find_package(LLVM REQUIRED CONFIG)
 
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
