@@ -21,9 +21,14 @@
 
 
 #include "driver/driver.h"
+#include "llvm/IR/LLVMContext.h"
+
+using ::llvm::LLVMContext;
 using namespace Ni;
 
-Driver::Driver() : lexer(*this), visitor(), parser(lexer, visitor, *this)
+static LLVMContext llvmContext;
+
+Driver::Driver() : lexer(*this), visitor(new Module("testing", llvmContext)), parser(lexer, visitor, *this)
 {
 
 }

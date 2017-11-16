@@ -1,17 +1,16 @@
 #ifndef AST_H
 #define AST_H
-#include <string> 
+#include <string>
 #include <cstdarg>
 
 #include "ASTBaseNode.h"
 #include "ASTTypes.h"
-#include "codegen/Visitor.h"
 
 
 namespace AST
 {
 
-enum Types 
+enum Types
 {
 	INT,
 	DOUBLE,

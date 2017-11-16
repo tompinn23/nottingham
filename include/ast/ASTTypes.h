@@ -2,7 +2,6 @@
 #define AST_TYPES_H
 
 #include "ASTBaseNode.h"
-#include "codegen/Visitor.h"
 #include <string>
 using namespace Ni;
 namespace AST {
@@ -35,4 +34,3 @@ namespace AST {
 
 
 #endif // ! AST_TYPES_H
-

@@ -1,7 +1,7 @@
 #ifndef  AST_BASE_NODE_H
 #define AST_BASE_NODE_H
+#include "codegen/Visitor.h"
 namespace Ni {
-class Visitor;
 }
 namespace AST {
 	class ASTNode {
