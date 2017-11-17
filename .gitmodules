@@ -1,4 +1,0 @@
-[submodule "llvm"]
-	path = llvm
-	url = https://github.com/tompinn23/llvm.git
-	shallow = true
