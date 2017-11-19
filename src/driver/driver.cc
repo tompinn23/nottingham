@@ -47,6 +47,11 @@ int Driver::parse() {
 	return parser.parse();
 }
 
+void Driver::DumpModule()
+{
+	visitor.module->dump();
+}
+
 void Driver::SwitchStream(std::istream *is) {
 	//TODO: Clear ast when stream switched
 	lexer.switch_streams(is);

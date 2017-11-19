@@ -1,3 +1,1 @@
-This is test;
-90
-23
+int a = 20;

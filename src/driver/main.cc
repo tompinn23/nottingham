@@ -1,6 +1,5 @@
 /* Main Entry Point */
 #include <iostream>
-#include "llvm/IR/Module.h"
 #include <algorithm>
 #include <fstream>
 #include "driver/driver.h"
@@ -19,6 +18,7 @@ int main(int argc, char** argsv)
 	}
 	drive.SwitchStream(ifs);
 	int i = drive.parse();
+	drive.DumpModule();
 	delete ifs;
 	return i;
 }

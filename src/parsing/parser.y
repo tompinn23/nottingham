@@ -125,8 +125,8 @@ namespace Ni {
 %token <std::string> STRING
 
 %type <AST::Types> ty
-%type <AST::ASTNode*> item_dec
-%type <AST::ASTNode*> expr
+%type <AST::DeclarationNode*> item_dec
+%type <AST::ASTNode*> expr lit litnum term factor
 
 %start program
 
@@ -137,7 +137,7 @@ program
 ;
 
 item
-: item_dec  { visitor.Visit($1, visit); }
+: item_dec  { $1->global = true; visitor.Visit($1, visit); delete $1; }
 | EOF
 ;
 
@@ -150,6 +150,33 @@ ty
 ;
 
 expr
+: expr PLUS term { $$ = new AST::BinOpNode('+', $1, $3); }
+| expr MINUS term { $$ = new AST::BinOpNode('-', $1, $3); }
+| term  
+| lit
+;
+
+term
+: term MUL factor { $$ = new AST::BinOpNode('*', $1, $3); }
+| term DIV factor { $$ = new AST::BinOpNode('/', $1, $3); }
+| factor
+;
+
+
+factor
+: LEFTPAR expr RIGHTPAR { $$ = $2}
+| MINUS factor
+| litnum
+;
+
+litnum
+: INT { $$ = new AST::IntNode($1); }
+| DOUBLE { $$ = new AST::DoubleNode($1); }
+;
+
+
+
+lit
 : INT {  $$ = new AST::IntNode($1); }
 | DOUBLE { $$ = new AST::DoubleNode($1); }
 | STRING { $$ = new AST::StringNode($1); }

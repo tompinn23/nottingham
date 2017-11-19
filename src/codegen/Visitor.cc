@@ -20,7 +20,16 @@ ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 {
 	if(visit)
 		return node->accept(*this);
+	//processedNodes.push_back(node);
 	return node;
+}
+
+Visitor::~Visitor()
+{
+	for(ASTNode* i : processedNodes)
+	{
+		delete i;
+	}
 }
 
 void Visitor::NodeVisit(IntNode &node)
@@ -46,7 +55,33 @@ void Visitor::NodeVisit(BoolNode &node)
 void Visitor::NodeVisit(DeclarationNode &node)
 {
 	*this->Visit(node.GetValue(), true);
-	llvm::Value* initValue = valueStack.pop();
-	*initValue->getType();
+	llvm::Value* initValue = valueStack.top();
+	valueStack.pop();
+	if(node.global)
+	{
+		llvm::Type* initType = initValue->getType();
+		if(initType->isArrayTy())
+		{
+			llvm::ConstantArray* val = llvm::dyn_cast<llvm::ConstantArray>(initValue);
+			module->getOrInsertGlobal(node.varName, val->getType());
+		} 
+		if(initType->isDoubleTy())
+			module->getOrInsertGlobal(node.varName, builder->getDoubleTy());
+		if(initType->isIntegerTy())
+			module->getOrInsertGlobal(node.varName, builder->getInt64Ty());
+
+		llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
+		glob->setLinkage(llvm::GlobalValue::CommonLinkage);
+		glob->setAlignment(4);
+		
+		if(initType->isArrayTy())
+			glob->setInitializer(llvm::dyn_cast<llvm::ConstantArray>(initValue));
+		if(initType->isDoubleTy())
+			glob->setInitializer(llvm::dyn_cast<llvm::ConstantFP>(initValue));
+		if(initType->isIntegerTy())
+			glob->setInitializer(llvm::dyn_cast<llvm::ConstantInt>(initValue));
+
+	
+	}
 	std::cout << "YAYA" << std::endl;
 }

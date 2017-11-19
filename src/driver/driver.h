@@ -17,7 +17,7 @@ public:
 	int parse();
 	void AddToList(ASTNode *ptr);
 	void SwitchStream(std::istream *is);
-	
+	void DumpModule();	
 
 	friend class Parser;
 	friend class Lexer;

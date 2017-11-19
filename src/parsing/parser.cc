@@ -251,9 +251,12 @@ namespace  Ni  {
   {
       switch (that.type_get ())
     {
-      case 52: // item_dec
       case 54: // expr
         value.move< AST::ASTNode* > (that.value);
+        break;
+
+      case 52: // item_dec
+        value.move< AST::DeclarationNode* > (that.value);
         break;
 
       case 53: // ty
@@ -292,9 +295,12 @@ namespace  Ni  {
     state = that.state;
       switch (that.type_get ())
     {
-      case 52: // item_dec
       case 54: // expr
         value.copy< AST::ASTNode* > (that.value);
+        break;
+
+      case 52: // item_dec
+        value.copy< AST::DeclarationNode* > (that.value);
         break;
 
       case 53: // ty
@@ -541,9 +547,12 @@ namespace  Ni  {
          when using variants.  */
         switch (yyr1_[yyn])
     {
-      case 52: // item_dec
       case 54: // expr
         yylhs.value.build< AST::ASTNode* > ();
+        break;
+
+      case 52: // item_dec
+        yylhs.value.build< AST::DeclarationNode* > ();
         break;
 
       case 53: // ty
@@ -581,48 +590,48 @@ namespace  Ni  {
             {
   case 3:
 #line 140 "parser.y" // lalr1.cc:859
-    { visitor.Visit(yystack_[0].value.as< AST::ASTNode* > (), visit); }
-#line 586 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+    { yystack_[0].value.as< AST::DeclarationNode* > ()->global = true; visitor.Visit(yystack_[0].value.as< AST::DeclarationNode* > (), visit); delete yystack_[0].value.as< AST::DeclarationNode* > (); }
+#line 595 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 5:
 #line 145 "parser.y" // lalr1.cc:859
-    {yylhs.value.as< AST::ASTNode* > () = new AST::DeclarationNode(yystack_[4].value.as< AST::Types > (), yystack_[3].value.as< std::string > (), yystack_[1].value.as< AST::ASTNode* > ());}
-#line 592 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+    {yylhs.value.as< AST::DeclarationNode* > () = new AST::DeclarationNode(yystack_[4].value.as< AST::Types > (), yystack_[3].value.as< std::string > (), yystack_[1].value.as< AST::ASTNode* > ());}
+#line 601 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 6:
 #line 149 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::Types > () = AST::StringToType(yystack_[0].value.as< std::string > ()); }
-#line 598 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 607 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 7:
 #line 153 "parser.y" // lalr1.cc:859
     {  yylhs.value.as< AST::ASTNode* > () = new AST::IntNode(yystack_[0].value.as< long > ()); }
-#line 604 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 613 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 8:
 #line 154 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::DoubleNode(yystack_[0].value.as< double > ()); }
-#line 610 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 619 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 9:
 #line 155 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::StringNode(yystack_[0].value.as< std::string > ()); }
-#line 616 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 625 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 10:
 #line 156 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BoolNode(yystack_[0].value.as< bool > ()); }
-#line 622 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 631 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
 
-#line 626 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
+#line 635 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -1000,7 +1009,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:1167
 } //  Ni 
-#line 1004 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:1167
+#line 1013 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:1167
 #line 158 "parser.y" // lalr1.cc:1168
 
 

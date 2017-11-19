@@ -8,6 +8,7 @@
 #include "llvm/IR/Value.h"
 
 #include <stack>
+#include <vector>
 
 namespace AST{
 	class ASTNode;
@@ -27,6 +28,7 @@ namespace Ni {
 	class Visitor {
 	public:
 		Visitor(Module* module);
+		~Visitor();
 		ASTNode* Visit(ASTNode *node, bool visit);
 		
 		void NodeVisit(IntNode &node);
@@ -34,10 +36,12 @@ namespace Ni {
 		void NodeVisit(StringNode &node);
 		void NodeVisit(BoolNode  &node);
 		void NodeVisit(DeclarationNode &node);
-	private:
 		std::unique_ptr<Module> module;
+	private:
 		std::unique_ptr<IRBuilder<> > builder;
 		std::stack<llvm::Value*> valueStack;
+		std::vector<ASTNode*> processedNodes;
+
 	};
 }
 #endif // !VISITOR_H

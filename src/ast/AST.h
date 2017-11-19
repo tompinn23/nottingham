@@ -26,9 +26,10 @@ Types StringToType(std::string str);
 class DeclarationNode : public ASTNode {
 public:
 	DeclarationNode(Types ty, std::string name, ASTNode *v);
+	~DeclarationNode() { delete val; }
 	ASTNode* GetValue();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
-private:
+	bool global = false;
 	std::string varName;
 	Types varType;
 	ASTNode *val;

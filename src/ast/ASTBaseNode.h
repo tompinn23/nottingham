@@ -8,6 +8,7 @@ namespace AST {
 	class ASTNode {
 	public:
 		virtual ASTNode* accept(Ni::Visitor &visitor) = 0;
+		virtual ~ASTNode() {}
 	};
 }
 
