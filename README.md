@@ -21,7 +21,7 @@ We now have a build system!!!!!!!!!!.
 
 ## Building
 
-##### Windows / Linux
+##### Windows
   
 To obtain flex and bison I recommend installing chocolatey from [here](https://chocolatey.org/install). Then run  
 ```choco install winflexbison3```
@@ -42,6 +42,20 @@ Then
 ```
 cmake --build build
 ```
+##### Linux
+
+You can find dependencies from your package manager.
+Flex and bison may already be installed but may not be a high enough version.
+
+To build nilang do
+```
+git clone https://github.com/ni-lang/nilang
+cd nilang
+cmake -H. -Bbuild
+cmake --build build
+```
+
+
 Warning the build takes a long time first time as we have to build llvm
 ## License
 
