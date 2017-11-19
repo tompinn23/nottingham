@@ -27,7 +27,7 @@ To obtain flex and bison I recommend installing chocolatey from [here](https://c
 ```choco install winflexbison3```
 
 Cmake can be downloaded and installed from [cmake.org](https://cmake.org/download/)  
-
+You will also need visual studio I use Visual Studio 2017 which can be found [here](https://www.visualstudio.com/#)
 To build nilang do
 ```
 git clone https://github.com/ni-lang/nilang
