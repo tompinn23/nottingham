@@ -1,0 +1,4 @@
+[submodule "src/llvm"]
+	path = src/llvm
+	url = https://github.com/ni-lang/llvm.git
+	shallow = true
