@@ -142,7 +142,7 @@ item
 ;
 
 item_dec
-: ty IDENTIFIER EQ expr {$$ = new AST::DeclarationNode($1, $2, $4);}
+: ty IDENTIFIER EQ expr END_STATEMENT {$$ = new AST::DeclarationNode($1, $2, $4);}
 ;
 
 ty

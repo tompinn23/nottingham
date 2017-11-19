@@ -1,4 +1,7 @@
 #include "codegen/Visitor.h"
+
+#include <iostream>
+
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Value.h"
@@ -22,25 +25,26 @@ ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 
 void Visitor::NodeVisit(IntNode &node)
 {
+	std::cout << "WOO IT WORKS" << std::endl;
 	valueStack.push(llvm::ConstantInt::get(llvm::Type::getInt64Ty(module->getContext()), node.value, true));
 }
 void Visitor::NodeVisit(DoubleNode &node)
 {
 	valueStack.push(llvm::ConstantFP::get(llvm::Type::getDoubleTy(module->getContext()), node.value));
-
 }
 
 void Visitor::NodeVisit(StringNode &node)
 {
-
+	valueStack.push(llvm::ConstantDataArray::get(module->getContext(), llvm::ArrayRef<uint8_t>(reinterpret_cast<const unsigned char*>(node.value.c_str()), node.value.length())));
 }
 
 void Visitor::NodeVisit(BoolNode &node)
 {
-
+	valueStack.push(llvm::ConstantInt::get(llvm::Type::getInt1Ty(module->getContext()), node.value, true));
 }
 
 void Visitor::NodeVisit(DeclarationNode &node)
 {
-
+	*this->Visit(node.GetValue(), true);
+	std::cout << "YAYA" << std::endl;
 }

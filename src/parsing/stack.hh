@@ -31,18 +31,18 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/tom/nilang-ninja/src/parsing/stack.hh
+ ** \file /home/tom/nilang/src/parsing/stack.hh
  ** Define the  Ni ::stack class.
  */
 
-#ifndef YY_YY_HOME_TOM_NILANG_NINJA_SRC_PARSING_STACK_HH_INCLUDED
-# define YY_YY_HOME_TOM_NILANG_NINJA_SRC_PARSING_STACK_HH_INCLUDED
+#ifndef YY_YY_HOME_TOM_NILANG_SRC_PARSING_STACK_HH_INCLUDED
+# define YY_YY_HOME_TOM_NILANG_SRC_PARSING_STACK_HH_INCLUDED
 
 # include <vector>
 
 #line 9 "parser.y" // stack.hh:132
 namespace  Ni  {
-#line 46 "/home/tom/nilang-ninja/src/parsing/stack.hh" // stack.hh:132
+#line 46 "/home/tom/nilang/src/parsing/stack.hh" // stack.hh:132
   template <class T, class S = std::vector<T> >
   class stack
   {
@@ -152,6 +152,6 @@ namespace  Ni  {
 
 #line 9 "parser.y" // stack.hh:132
 } //  Ni 
-#line 156 "/home/tom/nilang-ninja/src/parsing/stack.hh" // stack.hh:132
+#line 156 "/home/tom/nilang/src/parsing/stack.hh" // stack.hh:132
 
-#endif // !YY_YY_HOME_TOM_NILANG_NINJA_SRC_PARSING_STACK_HH_INCLUDED
+#endif // !YY_YY_HOME_TOM_NILANG_SRC_PARSING_STACK_HH_INCLUDED

@@ -17,7 +17,7 @@
 %option prefix="Ni_"
 
 nums [0-9]+
-ident [a-zA-Z][a-zA-Z0-9]+
+ident [_a-zA-Z][_a-zA-Z0-9]*
 string  \"[^\n"]+\"
 
 %%
@@ -77,7 +77,7 @@ false { return Ni::Parser::make_BOOL(false); }
 \|\|  { return Ni::Parser::make_OROR(); }
 \|    { return Ni::Parser::make_OR(); }
 
-[0-9] { return Ni::Parser::make_INT(atol(yytext)); }
+[0-9]+ { return Ni::Parser::make_INT(atol(yytext)); }
 
 [0-9]+\.[0-9]* {
 	return Ni::Parser::make_DOUBLE(atof(yytext));

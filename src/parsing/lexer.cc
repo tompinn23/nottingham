@@ -1,6 +1,6 @@
-#line 1 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
+#line 1 "/home/tom/nilang/src/parsing/lexer.cc"
 
-#line 3 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
+#line 3 "/home/tom/nilang/src/parsing/lexer.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -352,9 +352,9 @@ static const flex_int16_t yy_accept[125] =
     {   0,
         0,    0,   51,   49,    1,    1,   36,   49,   42,   21,
        22,   29,   27,   25,   31,   45,   18,   38,   34,   40,
-       49,   49,   49,   49,   49,   49,   49,   49,   49,   49,
-       49,   49,   23,   44,   24,   35,    0,   41,   30,   28,
-       26,   32,   46,    0,   37,   33,   39,   47,   47,   47,
+       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
+       47,   47,   23,   44,   24,   35,    0,   41,   30,   28,
+       26,   32,   46,   45,   37,   33,   39,   47,   47,   47,
        47,   47,   47,   47,    8,   47,   47,   47,   47,   47,
        47,   47,   47,   47,   47,   43,   48,   46,   47,   47,
         2,   47,   47,   47,   47,   47,   47,   47,    5,   47,
@@ -377,7 +377,7 @@ static const YY_CHAR yy_ec[256] =
        17,   18,    1,    1,   19,   19,   19,   19,   19,   19,
        19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
        19,   19,   19,   19,   19,   19,   19,   19,   19,   19,
-        1,    1,    1,    1,    1,    1,   20,   21,   22,   23,
+        1,    1,    1,    1,   19,    1,   20,   21,   22,   23,
 
        24,   25,   19,   26,   27,   19,   19,   28,   29,   30,
        31,   32,   19,   33,   34,   35,   36,   37,   38,   39,
@@ -507,8 +507,8 @@ static const flex_int16_t yy_chk[181] =
 
 	#define yyterminate() return Ni::Parser::make_EOF();
 
-#line 510 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
-#line 511 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
+#line 510 "/home/tom/nilang/src/parsing/lexer.cc"
+#line 511 "/home/tom/nilang/src/parsing/lexer.cc"
 
 #define INITIAL 0
 
@@ -644,7 +644,7 @@ YY_DECL
 
 
 
-#line 647 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
+#line 647 "/home/tom/nilang/src/parsing/lexer.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -960,7 +960,7 @@ YY_RULE_SETUP
 #line 96 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 963 "/home/tom/nilang-ninja/src/parsing/lexer.cc"
+#line 963 "/home/tom/nilang/src/parsing/lexer.cc"
 
 	case YY_END_OF_BUFFER:
 		{
