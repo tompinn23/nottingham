@@ -54,6 +54,8 @@ cd nilang
 cmake -H. -Bbuild
 cmake --build build
 ```
+### Tips
+To increase the build times on a multi-core computer. I use the [ninja](https://ninja-build.org/) build system which makes the build much quicker. Than msbuild or make. To use ninja make sure it is on your path and then replace -G"..." with -GNinja this can be done for either linux or windows.
 
 
 Warning the build takes a long time first time as we have to build llvm
