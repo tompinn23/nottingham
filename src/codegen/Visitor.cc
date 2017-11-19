@@ -46,5 +46,7 @@ void Visitor::NodeVisit(BoolNode &node)
 void Visitor::NodeVisit(DeclarationNode &node)
 {
 	*this->Visit(node.GetValue(), true);
+	llvm::Value* initValue = valueStack.pop();
+	*initValue->getType();
 	std::cout << "YAYA" << std::endl;
 }
