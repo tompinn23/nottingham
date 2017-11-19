@@ -30,7 +30,7 @@ Cmake can be downloaded and installed from [cmake.org](https://cmake.org/downloa
 You will also need visual studio I use Visual Studio 2017 which can be found [here](https://www.visualstudio.com/#)
 To build nilang do
 ```
-git clone https://github.com/ni-lang/nilang
+git clone --recursive https://github.com/ni-lang/nilang
 cd nilang
 cmake -H. -Bbuild
 ```
