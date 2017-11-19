@@ -1,5 +1,3 @@
-
-
 project (NILANG VERSION 0.1.0)
 
 set(NILANG_MAIN_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src CACHE STRING "The top level include directory")
