@@ -5,9 +5,20 @@ namespace Ni {
 	class Visitor;
 }
 namespace AST {
+	enum class NodeType
+	{
+	    AstNode,
+		IntNode,
+	    BoolNode,
+		StringNode,
+	    DoubleNode,
+	    DeclarationNode,
+		BinOpNode,
+	};
 	class ASTNode {
 	public:
 		virtual ASTNode* accept(Ni::Visitor &visitor) = 0;
+		virtual NodeType GetType() { return NodeType::AstNode; }
 		virtual ~ASTNode() {}
 	};
 }

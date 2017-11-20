@@ -4,7 +4,6 @@
 #include <cstdarg>
 
 #include "ASTBaseNode.h"
-#include "ASTTypes.h"
 #include "codegen/Visitor.h"
 
 
@@ -29,10 +28,22 @@ public:
 	~DeclarationNode() { delete val; }
 	ASTNode* GetValue();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
+	NodeType GetType() { return NodeType::DeclarationNode; }
 	bool global = false;
 	std::string varName;
 	Types varType;
-	ASTNode *val;
+	ASTNode* val;
+};
+
+class BinOpNode : public ASTNode {
+public:
+	BinOpNode(std::string op_arg, ASTNode* lhs_arg,  ASTNode* rhs_arg) : op(op_arg), lhs(lhs_arg), rhs(rhs_arg) {}
+	~BinOpNode() { delete lhs;  delete rhs; }
+	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
+	NodeType GetType() { return NodeType::BinOpNode; }
+	std::string op;
+	ASTNode* lhs;
+	ASTNode* rhs;
 };
 
 };

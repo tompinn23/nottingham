@@ -17,6 +17,7 @@ namespace AST{
 	class StringNode;
 	class BoolNode;
 	class DeclarationNode;
+	class BinOpNode;
 }
 
 using namespace AST;
@@ -36,6 +37,7 @@ namespace Ni {
 		void NodeVisit(StringNode &node);
 		void NodeVisit(BoolNode  &node);
 		void NodeVisit(DeclarationNode &node);
+		void NodeVisit(BinOpNode &node);
 		std::unique_ptr<Module> module;
 	private:
 		std::unique_ptr<IRBuilder<> > builder;
@@ -44,4 +46,4 @@ namespace Ni {
 
 	};
 }
-#endif // !VISITOR_H
+#endif //VISITOR_H

@@ -1,4 +1,4 @@
-#include "codegen/Visitor.h"
+#include "Visitor.h"
 
 #include <iostream>
 
@@ -19,7 +19,10 @@ Visitor::Visitor(Module* module_arg) : module(std::unique_ptr<Module> (module_ar
 ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 {
 	if(visit)
-		return node->accept(*this);
+		if(node != NULL)
+			return node->accept(*this);
+		else
+			std::cout << "Error node is null" << std::endl;
 	//processedNodes.push_back(node);
 	return node;
 }
@@ -54,34 +57,49 @@ void Visitor::NodeVisit(BoolNode &node)
 
 void Visitor::NodeVisit(DeclarationNode &node)
 {
-	*this->Visit(node.GetValue(), true);
+	*this->Visit(node.val, true);
 	llvm::Value* initValue = valueStack.top();
 	valueStack.pop();
 	if(node.global)
 	{
-		llvm::Type* initType = initValue->getType();
-		if(initType->isArrayTy())
+		if(node.val->GetType() == NodeType::IntNode)
 		{
-			llvm::ConstantArray* val = llvm::dyn_cast<llvm::ConstantArray>(initValue);
-			module->getOrInsertGlobal(node.varName, val->getType());
-		} 
-		if(initType->isDoubleTy())
-			module->getOrInsertGlobal(node.varName, builder->getDoubleTy());
-		if(initType->isIntegerTy())
 			module->getOrInsertGlobal(node.varName, builder->getInt64Ty());
-
-		llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
-		glob->setLinkage(llvm::GlobalValue::CommonLinkage);
-		glob->setAlignment(4);
-		
-		if(initType->isArrayTy())
-			glob->setInitializer(llvm::dyn_cast<llvm::ConstantArray>(initValue));
-		if(initType->isDoubleTy())
-			glob->setInitializer(llvm::dyn_cast<llvm::ConstantFP>(initValue));
-		if(initType->isIntegerTy())
+			llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
+			glob->setLinkage(llvm::GlobalValue::CommonLinkage);
+			glob->setAlignment(4);
 			glob->setInitializer(llvm::dyn_cast<llvm::ConstantInt>(initValue));
-
-	
+		}
+		if(node.val->GetType() == NodeType::DoubleNode)
+        {
+            module->getOrInsertGlobal(node.varName, builder->getDoubleTy());
+            llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
+            glob->setLinkage(llvm::GlobalValue::CommonLinkage);
+            glob->setAlignment(4);
+            glob->setInitializer(llvm::dyn_cast<llvm::ConstantFP>(initValue));
+        }
+		if(node.val->GetType() == NodeType::BoolNode)
+        {
+            module->getOrInsertGlobal(node.varName, builder->getInt1Ty());
+            llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
+            glob->setLinkage(llvm::GlobalValue::CommonLinkage);
+            glob->setAlignment(4);
+            glob->setInitializer(llvm::dyn_cast<llvm::ConstantInt>(initValue));
+        }
+		if(node.val->GetType() == NodeType::StringNode)
+        {
+			llvm::ConstantDataArray* data = llvm::dyn_cast<llvm::ConstantDataArray>(initValue);
+            module->getOrInsertGlobal(node.varName, data->getType());
+            llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
+            glob->setLinkage(llvm::GlobalValue::CommonLinkage);
+            glob->setAlignment(4);
+            glob->setInitializer(llvm::dyn_cast<llvm::ConstantDataArray>(initValue));
+        }
 	}
 	std::cout << "YAYA" << std::endl;
+}
+
+void Visitor::NodeVisit(BinOpNode &node)
+{
+
 }

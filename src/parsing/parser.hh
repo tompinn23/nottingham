@@ -45,8 +45,9 @@
 #include <iostream>
 #include <string>
 
-#include "ast/AST.h"
 #include "codegen/Visitor.h"
+#include "ast/AST.h"
+#include "ast/ASTTypes.h"
 using namespace std;
 
 
@@ -66,7 +67,7 @@ namespace Ni {
 }
 
 
-#line 70 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 71 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -143,7 +144,7 @@ namespace Ni {
 
 #line 9 "parser.y" // lalr1.cc:377
 namespace  Ni  {
-#line 147 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 148 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 
 
@@ -311,6 +312,10 @@ namespace  Ni  {
     union union_type
     {
       // expr
+      // term
+      // factor
+      // litnum
+      // lit
       char dummy1[sizeof(AST::ASTNode*)];
 
       // item_dec
@@ -904,8 +909,8 @@ namespace  Ni  {
     {
       yyeof_ = 0,
       yylast_ = 47,     ///< Last index in yytable_.
-      yynnts_ = 6,  ///< Number of nonterminal symbols.
-      yyfinal_ = 7, ///< Termination state number.
+      yynnts_ = 11,  ///< Number of nonterminal symbols.
+      yyfinal_ = 8, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 49  ///< Number of tokens.
@@ -990,15 +995,19 @@ namespace  Ni  {
   {
       switch (other.type_get ())
     {
-      case 54: // expr
+      case 55: // expr
+      case 56: // term
+      case 57: // factor
+      case 58: // litnum
+      case 59: // lit
         value.copy< AST::ASTNode* > (other.value);
         break;
 
-      case 52: // item_dec
+      case 53: // item_dec
         value.copy< AST::DeclarationNode* > (other.value);
         break;
 
-      case 53: // ty
+      case 54: // ty
         value.copy< AST::Types > (other.value);
         break;
 
@@ -1035,15 +1044,19 @@ namespace  Ni  {
     (void) v;
       switch (this->type_get ())
     {
-      case 54: // expr
+      case 55: // expr
+      case 56: // term
+      case 57: // factor
+      case 58: // litnum
+      case 59: // lit
         value.copy< AST::ASTNode* > (v);
         break;
 
-      case 52: // item_dec
+      case 53: // item_dec
         value.copy< AST::DeclarationNode* > (v);
         break;
 
-      case 53: // ty
+      case 54: // ty
         value.copy< AST::Types > (v);
         break;
 
@@ -1146,15 +1159,19 @@ namespace  Ni  {
     // Type destructor.
     switch (yytype)
     {
-      case 54: // expr
+      case 55: // expr
+      case 56: // term
+      case 57: // factor
+      case 58: // litnum
+      case 59: // lit
         value.template destroy< AST::ASTNode* > ();
         break;
 
-      case 52: // item_dec
+      case 53: // item_dec
         value.template destroy< AST::DeclarationNode* > ();
         break;
 
-      case 53: // ty
+      case 54: // ty
         value.template destroy< AST::Types > ();
         break;
 
@@ -1198,15 +1215,19 @@ namespace  Ni  {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 54: // expr
+      case 55: // expr
+      case 56: // term
+      case 57: // factor
+      case 58: // litnum
+      case 59: // lit
         value.move< AST::ASTNode* > (s.value);
         break;
 
-      case 52: // item_dec
+      case 53: // item_dec
         value.move< AST::DeclarationNode* > (s.value);
         break;
 
-      case 53: // ty
+      case 54: // ty
         value.move< AST::Types > (s.value);
         break;
 
@@ -1575,7 +1596,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1579 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 1600 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 
 

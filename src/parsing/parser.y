@@ -12,8 +12,9 @@
 #include <iostream>
 #include <string>
 
-#include "ast/AST.h"
 #include "codegen/Visitor.h"
+#include "ast/AST.h"
+#include "ast/ASTTypes.h"
 using namespace std;
 
 
@@ -46,7 +47,6 @@ namespace Ni {
 	#include <iostream>
 	#include "parsing/lexer.h"
 	#include "parser.hh"
-
 	static Ni::Parser::symbol_type yylex(Ni::Lexer &lexer, Ni::Driver &driver) {
 		return lexer.get_next_token();
 	}
@@ -61,6 +61,7 @@ namespace Ni {
 %parse-param { Ni::Lexer &lexer }
 %parse-param { Ni::Visitor &visitor }
 %parse-param { Ni::Driver &driver }
+
 %define parse.trace
 %define parse.error verbose
 %define api.token.prefix {TOKEN_}
@@ -126,60 +127,87 @@ namespace Ni {
 
 %type <AST::Types> ty
 %type <AST::DeclarationNode*> item_dec
-%type <AST::ASTNode*> expr lit litnum term factor
+%type <AST::ASTNode*> expr lit litnum term factor fn block block_item
 
 %start program
 
 %%
 
 program
-: item
+: items
 ;
 
-item
-: item_dec  { $1->global = true; visitor.Visit($1, visit); delete $1; }
+items
+: item
+| items item
 | EOF
+;
+	
+
+item
+: item_dec  { $1->global = true; visitor.Visit($1, visit);}
+| fn
 ;
 
 item_dec
-: ty IDENTIFIER EQ expr END_STATEMENT {$$ = new AST::DeclarationNode($1, $2, $4);}
+: ty IDENTIFIER EQ expr END_STATEMENT {$$ = new AST::DeclarationNode($1, $2, $4); std::cout << $4 << std::endl;}
 ;
 
 ty
 : IDENTIFIER { $$ = AST::StringToType($1); }
 ;
 
+fn
+: PUB DEF ty IDENTIFIER LEFTPAR expr RIGHTPAR block
+| DEF ty IDENTIFIER LEFTPAR expr RIGHTPAR block
+;
+
+block
+: LEFTBRACE block_items
+;
+
+block_items
+: block_item
+| block_items block_item
+| RIGHTBRACE
+;
+
+
+
 expr
-: expr PLUS term { $$ = new AST::BinOpNode('+', $1, $3); }
-| expr MINUS term { $$ = new AST::BinOpNode('-', $1, $3); }
-| term  
-| lit
+: expr PLUS term { $$ = new AST::BinOpNode("+", $1, $3); }
+| expr MINUS term { $$ = new AST::BinOpNode("-", $1, $3); }
+| term { $$ = $1; }
+| lit { $$ = $1; }
 ;
 
 term
-: term MUL factor { $$ = new AST::BinOpNode('*', $1, $3); }
-| term DIV factor { $$ = new AST::BinOpNode('/', $1, $3); }
-| factor
+: term MUL factor { $$ = new AST::BinOpNode("*", $1, $3); }
+| term DIV factor { $$ = new AST::BinOpNode("/", $1, $3); }
+| factor { $$ = $1; } 
 ;
 
 
 factor
-: LEFTPAR expr RIGHTPAR { $$ = $2}
-| MINUS factor
-| litnum
+: LEFTPAR expr RIGHTPAR { $$ = $2; }
+| MINUS factor { $$ = $2; }
+| litnum { $$ = $1; } 
 ;
 
 litnum
-: INT { $$ = new AST::IntNode($1); }
+: INT { $$ = new AST::IntNode($1); std::cout << $$ << std::endl;}
 | DOUBLE { $$ = new AST::DoubleNode($1); }
 ;
 
 
 
 lit
-: INT {  $$ = new AST::IntNode($1); }
-| DOUBLE { $$ = new AST::DoubleNode($1); }
-| STRING { $$ = new AST::StringNode($1); }
+: STRING 
+{ 
+	$1.erase(0, 1);
+	$1.erase($1.size() -1);
+	$$ = new AST::StringNode($1); 
+}
 | BOOL { $$ = new AST::BoolNode($1); }
 ;
 %%
