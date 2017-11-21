@@ -6,9 +6,12 @@ matrix:
         apt:
           sources:
             - llvm-toolchain-trusty-5.0
+            - george-edison55-precise-backports
           packages:
             - clang-5.0
             - ninja-build
+            - cmake-data
+            - cmake
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
