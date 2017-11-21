@@ -18,4 +18,6 @@ matrix:
 language: cpp
 before_install:
     - eval "${MATRIX_EVAL}"
-script: ./travis.sh && cmake -GNinja -H. -Bbuild && cmake --build build
+    - chmod +x travis.sh
+    - ./travis.sh
+script: cmake -GNinja -H. -Bbuild && cmake --build build
