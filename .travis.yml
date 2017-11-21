@@ -8,10 +8,11 @@ matrix:
             - llvm-toolchain-trusty-5.0
           packages:
             - clang-5.0
+            - ninja
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 language: cpp
 before_install:
     - eval "${MATRIX_EVAL}"
-script: cmake -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -H. -Bbuild && cmake --build build
+script: cmake -GNinja -H. -Bbuild && cmake --build build
