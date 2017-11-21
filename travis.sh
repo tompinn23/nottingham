@@ -3,6 +3,6 @@ tar xf cmake-3.4.3.tar.gz
 cd cmake-3.4.3
 ./bootstrap
 make
-make install
+sudo make install
 cd ..
 rm -rf cmake*
