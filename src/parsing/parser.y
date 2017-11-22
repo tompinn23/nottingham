@@ -52,13 +52,13 @@ namespace Ni {
 	}
 	
 	static bool visit = true;
-	static AST::ASTNode* ext_blk(AST::BlockNode* node, AST::ASTNode* ext)
+	static AST::BlockNode* ext_blk(AST::BlockNode* node, AST::ASTNode* ext)
 	{	
-		blk->Extend(ext);
-		return blk;
+		node->Extend(ext);
+		return node;
 	}
 	
-	static AST::ASTNode* ext_args(AST::ArgsNode* args, AST::ArgNode* arg)
+	static AST::ArgsNode* ext_args(AST::ArgsNode* args, AST::ArgNode* arg)
 	{
 		args->Extend(arg);
 		return args;

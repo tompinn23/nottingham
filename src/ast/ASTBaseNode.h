@@ -17,6 +17,8 @@ namespace AST {
 		FunctionNode,
 		BlockNode,
 		EndBlockNode,
+		ArgsNode,
+		ArgNode,
 	};
 	class ASTNode {
 	public:

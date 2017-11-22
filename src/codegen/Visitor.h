@@ -21,6 +21,8 @@ namespace AST{
 	class FunctionNode;
 	class BlockNode;
 	class EndBlockNode;
+	class ArgNode;
+	class ArgsNode;
 }
 
 using namespace AST;
@@ -41,6 +43,8 @@ namespace Ni {
 		void NodeVisit(BoolNode  &node);
 		void NodeVisit(DeclarationNode &node);
 		void NodeVisit(BinOpNode &node);
+		void NodeVisit(ArgNode &node);
+		void NodeVisit(ArgsNode &node);
 		std::unique_ptr<Module> module;
 	private:
 		std::unique_ptr<IRBuilder<> > builder;

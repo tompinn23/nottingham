@@ -68,11 +68,22 @@ class EndBlockNode : public ASTNode {
 	NodeType GetType() { return NodeType::EndBlockNode; }
 };
 
+class ArgNode : public ASTNode {
+public:
+    ArgNode(Types ty_arg, std::string name_arg) : ty(ty_arg), name(name_arg) {}
+    ASTNode * accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
+    NodeType GetType() { return NodeType::ArgNode; }
+	Types ty;
+	std::string name;
+};
+
 class ArgsNode : public ASTNode {
 public:
 	ArgsNode(ArgNode* init) { args.push_back(init); }
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::ArgsNode; }
+	void Extend(ArgNode* node) { args.push_back(node); }
+	std::vector<ArgNode*> args;
 };
 
 

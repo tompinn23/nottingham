@@ -132,3 +132,14 @@ void Visitor::NodeVisit(BinOpNode &node)
 	}
 	valueStack.push(res);
 }
+
+void Visitor::NodeVisit(ArgNode &node)
+{
+
+}
+
+void Visitor::NodeVisit(ArgsNode &node)
+{
+
+}
+
