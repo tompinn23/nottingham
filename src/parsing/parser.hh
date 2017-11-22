@@ -311,6 +311,8 @@ namespace  Ni  {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // args
+      // block_item
       // expr
       // term
       // factor
@@ -318,24 +320,31 @@ namespace  Ni  {
       // lit
       char dummy1[sizeof(AST::ASTNode*)];
 
+      // block
+      // block_items
+      char dummy2[sizeof(AST::BlockNode*)];
+
       // item_dec
-      char dummy2[sizeof(AST::DeclarationNode*)];
+      char dummy3[sizeof(AST::DeclarationNode*)];
+
+      // fn
+      char dummy4[sizeof(AST::FunctionNode*)];
 
       // ty
-      char dummy3[sizeof(AST::Types)];
+      char dummy5[sizeof(AST::Types)];
 
       // BOOL
-      char dummy4[sizeof(bool)];
+      char dummy6[sizeof(bool)];
 
       // DOUBLE
-      char dummy5[sizeof(double)];
+      char dummy7[sizeof(double)];
 
       // INT
-      char dummy6[sizeof(long)];
+      char dummy8[sizeof(long)];
 
       // IDENTIFIER
       // STRING
-      char dummy7[sizeof(std::string)];
+      char dummy9[sizeof(std::string)];
 };
 
     /// Symbol semantic values.
@@ -441,7 +450,11 @@ namespace  Ni  {
 
   basic_symbol (typename Base::kind_type t, const AST::ASTNode* v);
 
+  basic_symbol (typename Base::kind_type t, const AST::BlockNode* v);
+
   basic_symbol (typename Base::kind_type t, const AST::DeclarationNode* v);
+
+  basic_symbol (typename Base::kind_type t, const AST::FunctionNode* v);
 
   basic_symbol (typename Base::kind_type t, const AST::Types v);
 
@@ -908,9 +921,9 @@ namespace  Ni  {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 47,     ///< Last index in yytable_.
-      yynnts_ = 11,  ///< Number of nonterminal symbols.
-      yyfinal_ = 8, ///< Termination state number.
+      yylast_ = 60,     ///< Last index in yytable_.
+      yynnts_ = 17,  ///< Number of nonterminal symbols.
+      yyfinal_ = 13, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 49  ///< Number of tokens.
@@ -995,16 +1008,27 @@ namespace  Ni  {
   {
       switch (other.type_get ())
     {
-      case 55: // expr
-      case 56: // term
-      case 57: // factor
-      case 58: // litnum
-      case 59: // lit
+      case 56: // args
+      case 60: // block_item
+      case 61: // expr
+      case 62: // term
+      case 63: // factor
+      case 64: // litnum
+      case 65: // lit
         value.copy< AST::ASTNode* > (other.value);
+        break;
+
+      case 58: // block
+      case 59: // block_items
+        value.copy< AST::BlockNode* > (other.value);
         break;
 
       case 53: // item_dec
         value.copy< AST::DeclarationNode* > (other.value);
+        break;
+
+      case 55: // fn
+        value.copy< AST::FunctionNode* > (other.value);
         break;
 
       case 54: // ty
@@ -1044,16 +1068,27 @@ namespace  Ni  {
     (void) v;
       switch (this->type_get ())
     {
-      case 55: // expr
-      case 56: // term
-      case 57: // factor
-      case 58: // litnum
-      case 59: // lit
+      case 56: // args
+      case 60: // block_item
+      case 61: // expr
+      case 62: // term
+      case 63: // factor
+      case 64: // litnum
+      case 65: // lit
         value.copy< AST::ASTNode* > (v);
+        break;
+
+      case 58: // block
+      case 59: // block_items
+        value.copy< AST::BlockNode* > (v);
         break;
 
       case 53: // item_dec
         value.copy< AST::DeclarationNode* > (v);
+        break;
+
+      case 55: // fn
+        value.copy< AST::FunctionNode* > (v);
         break;
 
       case 54: // ty
@@ -1098,7 +1133,19 @@ namespace  Ni  {
   {}
 
   template <typename Base>
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::BlockNode* v)
+    : Base (t)
+    , value (v)
+  {}
+
+  template <typename Base>
    Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::DeclarationNode* v)
+    : Base (t)
+    , value (v)
+  {}
+
+  template <typename Base>
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::FunctionNode* v)
     : Base (t)
     , value (v)
   {}
@@ -1159,16 +1206,27 @@ namespace  Ni  {
     // Type destructor.
     switch (yytype)
     {
-      case 55: // expr
-      case 56: // term
-      case 57: // factor
-      case 58: // litnum
-      case 59: // lit
+      case 56: // args
+      case 60: // block_item
+      case 61: // expr
+      case 62: // term
+      case 63: // factor
+      case 64: // litnum
+      case 65: // lit
         value.template destroy< AST::ASTNode* > ();
+        break;
+
+      case 58: // block
+      case 59: // block_items
+        value.template destroy< AST::BlockNode* > ();
         break;
 
       case 53: // item_dec
         value.template destroy< AST::DeclarationNode* > ();
+        break;
+
+      case 55: // fn
+        value.template destroy< AST::FunctionNode* > ();
         break;
 
       case 54: // ty
@@ -1215,16 +1273,27 @@ namespace  Ni  {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 55: // expr
-      case 56: // term
-      case 57: // factor
-      case 58: // litnum
-      case 59: // lit
+      case 56: // args
+      case 60: // block_item
+      case 61: // expr
+      case 62: // term
+      case 63: // factor
+      case 64: // litnum
+      case 65: // lit
         value.move< AST::ASTNode* > (s.value);
+        break;
+
+      case 58: // block
+      case 59: // block_items
+        value.move< AST::BlockNode* > (s.value);
         break;
 
       case 53: // item_dec
         value.move< AST::DeclarationNode* > (s.value);
+        break;
+
+      case 55: // fn
+        value.move< AST::FunctionNode* > (s.value);
         break;
 
       case 54: // ty
@@ -1596,7 +1665,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1600 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 1669 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 
 

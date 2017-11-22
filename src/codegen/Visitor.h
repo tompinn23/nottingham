@@ -18,6 +18,9 @@ namespace AST{
 	class BoolNode;
 	class DeclarationNode;
 	class BinOpNode;
+	class FunctionNode;
+	class BlockNode;
+	class EndBlockNode;
 }
 
 using namespace AST;

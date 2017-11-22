@@ -52,6 +52,17 @@ namespace Ni {
 	}
 	
 	static bool visit = true;
+	static AST::ASTNode* ext_blk(AST::BlockNode* node, AST::ASTNode* ext)
+	{	
+		blk->Extend(ext);
+		return blk;
+	}
+	
+	static AST::ASTNode* ext_args(AST::ArgsNode* args, AST::ArgNode* arg)
+	{
+		args->Extend(arg);
+		return args;
+	}
 
 	using namespace Ni;
 }
@@ -127,7 +138,9 @@ namespace Ni {
 
 %type <AST::Types> ty
 %type <AST::DeclarationNode*> item_dec
-%type <AST::ASTNode*> expr lit litnum term factor fn block block_item
+%type <AST::FunctionNode*> fn
+%type <AST::BlockNode*> block_items block
+%type <AST::ASTNode*> expr lit litnum term factor block_item args
 
 %start program
 
@@ -158,20 +171,31 @@ ty
 ;
 
 fn
-: PUB DEF ty IDENTIFIER LEFTPAR expr RIGHTPAR block
-| DEF ty IDENTIFIER LEFTPAR expr RIGHTPAR block
+: PUB DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(true, $4, $3, $6, $8); }
+| DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(false, $3, $2, $5, $7); }
+;
+
+args
+: arg { $$ = nullptr; } 
+;
+
+arg
+: ty IDENTIFIER
 ;
 
 block
-: LEFTBRACE block_items
+: LEFTBRACE block_items { $$ = $2; };
 ;
 
 block_items
-: block_item
-| block_items block_item
-| RIGHTBRACE
+: block_item { $$ = new AST::BlockNode($1); }
+| block_items block_item { $$ = ext_blk($1, $2); }
+| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
 ;
 
+block_item
+: item_dec { $$ = $1; } 
+;
 
 
 expr

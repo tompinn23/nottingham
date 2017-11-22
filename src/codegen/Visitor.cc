@@ -101,5 +101,34 @@ void Visitor::NodeVisit(DeclarationNode &node)
 
 void Visitor::NodeVisit(BinOpNode &node)
 {
-
+	*this->Visit(node.lhs, true);
+	*this->Visit(node.rhs, true);
+	llvm::Value* rhs = valueStack.top();
+	valueStack.pop();
+	llvm::Value* lhs = valueStack.top();
+	valueStack.pop();
+	llvm::Value* res;
+	bool i = false;
+	if(rhs->getType()->getTypeID() == llvm::Type::TypeID::IntegerTyID && lhs->getType()->getTypeID()  == llvm::Type::TypeID::IntegerTyID)
+		i = true;
+	if(node.op == "+")
+	{
+		if(i) res = builder->CreateAdd(lhs, rhs, "addtmp");
+		else res = builder->CreateFAdd(lhs, rhs, "addtmp");
+	}
+	else if(node.op == "-")
+	{
+		if(i) res = builder->CreateSub(lhs, rhs, "subtmp");
+		else res = builder->CreateFSub(lhs, rhs, "subtmp");
+	}
+	else if(node.op == "*")
+	{
+		if(i) res = builder->CreateMul(lhs, rhs, "multmp");
+		else res = builder->CreateFMul(lhs, rhs, "multmp");
+	}
+	else if(node.op == "/")
+	{
+		res = builder->CreateFDiv(lhs, rhs, "divtmp");
+	}
+	valueStack.push(res);
 }

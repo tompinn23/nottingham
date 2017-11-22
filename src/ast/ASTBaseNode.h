@@ -14,6 +14,9 @@ namespace AST {
 	    DoubleNode,
 	    DeclarationNode,
 		BinOpNode,
+		FunctionNode,
+		BlockNode,
+		EndBlockNode,
 	};
 	class ASTNode {
 	public:

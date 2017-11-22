@@ -45,6 +45,36 @@ public:
 	ASTNode* lhs;
 	ASTNode* rhs;
 };
+class FunctionNode : public ASTNode {
+public:
+	//TODO: Args?
+	FunctionNode(bool pub, std::string name, AST::Types ty, ASTNode* args, ASTNode* block) {};
+	ASTNode* accept(Ni::Visitor &visitor) {return this; }
+	NodeType GetType() { return NodeType::FunctionNode; }
+};
+
+class BlockNode : public ASTNode {
+public:
+	BlockNode(ASTNode* stmt) {};
+	ASTNode* accept(Ni::Visitor &visitor) { return this; }
+	NodeType GetType() { return NodeType::BlockNode; }
+	void Extend(ASTNode* node) {}
+	
+};
+
+class EndBlockNode : public ASTNode {
+	EndBlockNode() {};
+	ASTNode* accept(Ni::Visitor &visitor) { return this; }
+	NodeType GetType() { return NodeType::EndBlockNode; }
+};
+
+class ArgsNode : public ASTNode {
+public:
+	ArgsNode(ArgNode* init) { args.push_back(init); }
+	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
+	NodeType GetType() { return NodeType::ArgsNode; }
+};
+
 
 };
 
