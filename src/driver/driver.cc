@@ -49,7 +49,7 @@ int Driver::parse() {
 
 void Driver::DumpModule()
 {
-	visitor.module->dump();
+	visitor.module->print(llvm::errs(), nullptr);
 }
 
 void Driver::SwitchStream(std::istream *is) {

@@ -16,6 +16,9 @@ set(LLVM_BUILD_EXAMPLES false CACHE BOOL "")
 set(LLVM_INCLUDE_EXAMPLES false CACHE BOOL "")
 set(LLVM_TARGETS_TO_BUILD "X86" CACHE STRING "")
 
+option(VENDOR_LIBS "Decide whether to use libs from vendor or not" false)
+
+if(NOT VENDOR_LIBS)
 add_subdirectory(llvm)
 
 set(LLVM_DIR ${CMAKE_SOURCE_DIR}/build/src/llvm/lib/cmake/llvm)
@@ -24,6 +27,16 @@ find_package(LLVM REQUIRED CONFIG)
 
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
+
+else()
+
+find_package(LLVM REQUIRED CONFIG)
+
+message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
+message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
+
+endif()
+
 
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
