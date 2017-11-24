@@ -23,6 +23,8 @@ namespace AST{
 	class EndBlockNode;
 	class ArgNode;
 	class ArgsNode;
+	class ReturnNode;
+	class VarNode;
 }
 
 using namespace AST;

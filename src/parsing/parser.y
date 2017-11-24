@@ -141,7 +141,8 @@ namespace Ni {
 %type <AST::FunctionNode*> fn
 %type <AST::BlockNode*> block_items block
 %type <AST::ASTNode*> expr lit litnum term factor block_item args
-
+%type <AST:ReturnNode*> return
+%type <AST::VarNode*> var
 %start program
 
 %%
@@ -177,6 +178,7 @@ fn
 
 args
 : arg { $$ = nullptr; } 
+| %empty { $$ = nullptr; }
 ;
 
 arg
@@ -195,6 +197,16 @@ block_items
 
 block_item
 : item_dec { $$ = $1; } 
+| return { $$ = $1; }
+;
+
+return
+: RETURN expr END_STATEMENT { $$ = new ReturnNode($2); }
+| RETURN var END_STATEMENT { $$ = new ReturnNode($2); }
+;
+
+var
+: IDENTIFIER { $$ = new VarNode($1); }
 ;
 
 

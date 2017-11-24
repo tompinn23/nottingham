@@ -19,6 +19,8 @@ namespace AST {
 		EndBlockNode,
 		ArgsNode,
 		ArgNode,
+		ReturnNode,
+		VarNode,
 	};
 	class ASTNode {
 	public:
