@@ -141,7 +141,7 @@ namespace Ni {
 %type <AST::FunctionNode*> fn
 %type <AST::BlockNode*> block_items block
 %type <AST::ASTNode*> expr lit litnum term factor block_item args
-%type <AST:ReturnNode*> return
+%type <AST::ReturnNode*> return
 %type <AST::VarNode*> var
 %start program
 
@@ -172,8 +172,8 @@ ty
 ;
 
 fn
-: PUB DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(true, $4, $3, $6, $8); }
-| DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(false, $3, $2, $5, $7); }
+: PUB DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = visitor.Visit(new AST::FunctionNode(true, $4, $3, $6, $8), true); }
+| DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = visitor.Visit(new AST::FunctionNode(false, $3, $2, $5, $7), true); }
 ;
 
 args

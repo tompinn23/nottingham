@@ -133,12 +133,49 @@ void Visitor::NodeVisit(BinOpNode &node)
 	valueStack.push(res);
 }
 
+llvm::Type* ASTTypeToLLVMType(AST::Types ty, llvm::LLVMContext context)
+{
+	switch(ty)
+	{
+		case Types::BOOL:
+			return llvm::Type::getInt1Ty(context);
+		case Types::DOUBLE:
+			return llvm::Type::getDoubleTy(context);
+		case Types::INT:
+			return llvm::Type::getInt64Ty(context);
+		case Types::STRING:
+			return llvm::Type::getInt8PtrTy(context);
+	}
+}
+
+void Visitor::NodeVisit(FunctionNode &node)
+{
+	if(node.args != NULL)
+	{
+		std::vector<llvm::Type*> tys = std::vector<llvm::Type*>();
+		for(auto *i : static_cast<ArgsNode*>(node.args)->args)
+			tys.push_back(ASTTypeToLLVMType(i->ty, module->getContext()));
+		
+		//llvm::FunctionType* fnType = llvm::FunctionType::get()
+	}
+}
+
 void Visitor::NodeVisit(ArgNode &node)
 {
 
 }
 
 void Visitor::NodeVisit(ArgsNode &node)
+{
+
+}
+
+void Visitor::NodeVisit(VarNode &node)
+{
+
+}
+
+void Visitor::NodeVisit(ReturnNode &node)
 {
 
 }

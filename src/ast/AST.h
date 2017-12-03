@@ -22,6 +22,7 @@ enum Types
 Types StringToType(std::string str);
 
 
+
 class DeclarationNode : public ASTNode {
 public:
 	DeclarationNode(Types ty, std::string name, ASTNode *v);
@@ -48,24 +49,16 @@ public:
 class FunctionNode : public ASTNode {
 public:
 	//TODO: Args?
-	FunctionNode(bool pub, std::string name, AST::Types ty, ASTNode* args, ASTNode* block) {};
-	ASTNode* accept(Ni::Visitor &visitor) {return this; }
+	FunctionNode(bool pub, std::string name, AST::Types ty, ASTNode* args, ASTNode* block)
+	: pub(pub), name(name), ty(ty), args(args), block(block) {}
+	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::FunctionNode; }
-};
 
-class BlockNode : public ASTNode {
-public:
-	BlockNode(ASTNode* stmt) {};
-	ASTNode* accept(Ni::Visitor &visitor) { return this; }
-	NodeType GetType() { return NodeType::BlockNode; }
-	void Extend(ASTNode* node) {}
-	
-};
-
-class EndBlockNode : public ASTNode {
-	EndBlockNode() {};
-	ASTNode* accept(Ni::Visitor &visitor) { return this; }
-	NodeType GetType() { return NodeType::EndBlockNode; }
+	bool pub;
+	std::string name;
+	AST::Types ty;
+	ASTNode* args;
+	ASTNode* block;
 };
 
 class ArgNode : public ASTNode {
@@ -86,6 +79,39 @@ public:
 	std::vector<ArgNode*> args;
 };
 
+class BlockNode : public ASTNode {
+public:
+	BlockNode(ASTNode* stmt) {};
+	ASTNode* accept(Ni::Visitor &visitor) { return this; }
+	NodeType GetType() { return NodeType::BlockNode; }
+	void Extend(ASTNode* node) {}
+	
+};
+
+class EndBlockNode : public ASTNode {
+public:
+	EndBlockNode() {};
+	ASTNode* accept(Ni::Visitor &visitor) { return this; }
+	NodeType GetType() { return NodeType::EndBlockNode; }
+};
+
+class ReturnNode : public ASTNode {
+public:
+	ReturnNode(ASTNode* val) : retVal(val) {}
+	ASTNode* accept(Ni::Visitor &visitor) {visitor.NodeVisit(*this); return  this;}
+	NodeType GetType() { return NodeType::ReturnNode; }
+
+	ASTNode* retVal;
+};
+
+class VarNode : public ASTNode {
+public:
+	VarNode(std::string name) : name(name) {}
+	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
+	NodeType GetType() { return NodeType::VarNode; }
+	
+	std::string name;
+};
 
 };
 

@@ -31,14 +31,14 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/tom/nilang/src/parsing/parser.hh
+ ** \file /home/tom/nilang-new/src/parsing/parser.hh
  ** Define the  Ni ::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-#ifndef YY_YY_HOME_TOM_NILANG_SRC_PARSING_PARSER_HH_INCLUDED
-# define YY_YY_HOME_TOM_NILANG_SRC_PARSING_PARSER_HH_INCLUDED
+#ifndef YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
+# define YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
 // //                    "%code requires" blocks.
 #line 11 "parser.y" // lalr1.cc:377
 
@@ -67,7 +67,7 @@ namespace Ni {
 }
 
 
-#line 71 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 71 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -144,7 +144,7 @@ namespace Ni {
 
 #line 9 "parser.y" // lalr1.cc:377
 namespace  Ni  {
-#line 148 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 148 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
 
 
 
@@ -330,21 +330,27 @@ namespace  Ni  {
       // fn
       char dummy4[sizeof(AST::FunctionNode*)];
 
+      // return
+      char dummy5[sizeof(AST::ReturnNode*)];
+
       // ty
-      char dummy5[sizeof(AST::Types)];
+      char dummy6[sizeof(AST::Types)];
+
+      // var
+      char dummy7[sizeof(AST::VarNode*)];
 
       // BOOL
-      char dummy6[sizeof(bool)];
+      char dummy8[sizeof(bool)];
 
       // DOUBLE
-      char dummy7[sizeof(double)];
+      char dummy9[sizeof(double)];
 
       // INT
-      char dummy8[sizeof(long)];
+      char dummy10[sizeof(long)];
 
       // IDENTIFIER
       // STRING
-      char dummy9[sizeof(std::string)];
+      char dummy11[sizeof(std::string)];
 };
 
     /// Symbol semantic values.
@@ -456,7 +462,11 @@ namespace  Ni  {
 
   basic_symbol (typename Base::kind_type t, const AST::FunctionNode* v);
 
+  basic_symbol (typename Base::kind_type t, const AST::ReturnNode* v);
+
   basic_symbol (typename Base::kind_type t, const AST::Types v);
+
+  basic_symbol (typename Base::kind_type t, const AST::VarNode* v);
 
   basic_symbol (typename Base::kind_type t, const bool v);
 
@@ -921,8 +931,8 @@ namespace  Ni  {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 60,     ///< Last index in yytable_.
-      yynnts_ = 17,  ///< Number of nonterminal symbols.
+      yylast_ = 76,     ///< Last index in yytable_.
+      yynnts_ = 19,  ///< Number of nonterminal symbols.
       yyfinal_ = 13, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
@@ -1010,11 +1020,11 @@ namespace  Ni  {
     {
       case 56: // args
       case 60: // block_item
-      case 61: // expr
-      case 62: // term
-      case 63: // factor
-      case 64: // litnum
-      case 65: // lit
+      case 63: // expr
+      case 64: // term
+      case 65: // factor
+      case 66: // litnum
+      case 67: // lit
         value.copy< AST::ASTNode* > (other.value);
         break;
 
@@ -1031,8 +1041,16 @@ namespace  Ni  {
         value.copy< AST::FunctionNode* > (other.value);
         break;
 
+      case 61: // return
+        value.copy< AST::ReturnNode* > (other.value);
+        break;
+
       case 54: // ty
         value.copy< AST::Types > (other.value);
+        break;
+
+      case 62: // var
+        value.copy< AST::VarNode* > (other.value);
         break;
 
       case 46: // BOOL
@@ -1070,11 +1088,11 @@ namespace  Ni  {
     {
       case 56: // args
       case 60: // block_item
-      case 61: // expr
-      case 62: // term
-      case 63: // factor
-      case 64: // litnum
-      case 65: // lit
+      case 63: // expr
+      case 64: // term
+      case 65: // factor
+      case 66: // litnum
+      case 67: // lit
         value.copy< AST::ASTNode* > (v);
         break;
 
@@ -1091,8 +1109,16 @@ namespace  Ni  {
         value.copy< AST::FunctionNode* > (v);
         break;
 
+      case 61: // return
+        value.copy< AST::ReturnNode* > (v);
+        break;
+
       case 54: // ty
         value.copy< AST::Types > (v);
+        break;
+
+      case 62: // var
+        value.copy< AST::VarNode* > (v);
         break;
 
       case 46: // BOOL
@@ -1151,7 +1177,19 @@ namespace  Ni  {
   {}
 
   template <typename Base>
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::ReturnNode* v)
+    : Base (t)
+    , value (v)
+  {}
+
+  template <typename Base>
    Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::Types v)
+    : Base (t)
+    , value (v)
+  {}
+
+  template <typename Base>
+   Parser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const AST::VarNode* v)
     : Base (t)
     , value (v)
   {}
@@ -1208,11 +1246,11 @@ namespace  Ni  {
     {
       case 56: // args
       case 60: // block_item
-      case 61: // expr
-      case 62: // term
-      case 63: // factor
-      case 64: // litnum
-      case 65: // lit
+      case 63: // expr
+      case 64: // term
+      case 65: // factor
+      case 66: // litnum
+      case 67: // lit
         value.template destroy< AST::ASTNode* > ();
         break;
 
@@ -1229,8 +1267,16 @@ namespace  Ni  {
         value.template destroy< AST::FunctionNode* > ();
         break;
 
+      case 61: // return
+        value.template destroy< AST::ReturnNode* > ();
+        break;
+
       case 54: // ty
         value.template destroy< AST::Types > ();
+        break;
+
+      case 62: // var
+        value.template destroy< AST::VarNode* > ();
         break;
 
       case 46: // BOOL
@@ -1275,11 +1321,11 @@ namespace  Ni  {
     {
       case 56: // args
       case 60: // block_item
-      case 61: // expr
-      case 62: // term
-      case 63: // factor
-      case 64: // litnum
-      case 65: // lit
+      case 63: // expr
+      case 64: // term
+      case 65: // factor
+      case 66: // litnum
+      case 67: // lit
         value.move< AST::ASTNode* > (s.value);
         break;
 
@@ -1296,8 +1342,16 @@ namespace  Ni  {
         value.move< AST::FunctionNode* > (s.value);
         break;
 
+      case 61: // return
+        value.move< AST::ReturnNode* > (s.value);
+        break;
+
       case 54: // ty
         value.move< AST::Types > (s.value);
+        break;
+
+      case 62: // var
+        value.move< AST::VarNode* > (s.value);
         break;
 
       case 46: // BOOL
@@ -1665,9 +1719,9 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1669 "/home/tom/nilang/src/parsing/parser.hh" // lalr1.cc:377
+#line 1723 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
 
 
 
 
-#endif // !YY_YY_HOME_TOM_NILANG_SRC_PARSING_PARSER_HH_INCLUDED
+#endif // !YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
