@@ -31,14 +31,14 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/tom/nilang-new/src/parsing/parser.hh
+ ** \file C:/Users/tomjp/Desktop/nilang/src/parsing/parser.hh
  ** Define the  Ni ::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-#ifndef YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
-# define YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
+#ifndef YY_YY_C_USERS_TOMJP_DESKTOP_NILANG_SRC_PARSING_PARSER_HH_INCLUDED
+# define YY_YY_C_USERS_TOMJP_DESKTOP_NILANG_SRC_PARSING_PARSER_HH_INCLUDED
 // //                    "%code requires" blocks.
 #line 11 "parser.y" // lalr1.cc:377
 
@@ -67,7 +67,7 @@ namespace Ni {
 }
 
 
-#line 71 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
+#line 71 "C:/Users/tomjp/Desktop/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -144,7 +144,7 @@ namespace Ni {
 
 #line 9 "parser.y" // lalr1.cc:377
 namespace  Ni  {
-#line 148 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
+#line 148 "C:/Users/tomjp/Desktop/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 
 
@@ -1719,9 +1719,9 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1723 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
+#line 1723 "C:/Users/tomjp/Desktop/nilang/src/parsing/parser.hh" // lalr1.cc:377
 
 
 
 
-#endif // !YY_YY_HOME_TOM_NILANG_NEW_SRC_PARSING_PARSER_HH_INCLUDED
+#endif // !YY_YY_C_USERS_TOMJP_DESKTOP_NILANG_SRC_PARSING_PARSER_HH_INCLUDED

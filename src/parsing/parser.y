@@ -172,8 +172,8 @@ ty
 ;
 
 fn
-: PUB DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = visitor.Visit(new AST::FunctionNode(true, $4, $3, $6, $8), true); }
-| DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = visitor.Visit(new AST::FunctionNode(false, $3, $2, $5, $7), true); }
+: PUB DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(true, $4, $3, $6, $8); }
+| DEF ty IDENTIFIER LEFTPAR args RIGHTPAR block { $$ = new AST::FunctionNode(false, $3, $2, $5, $7); }
 ;
 
 args
