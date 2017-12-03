@@ -13,5 +13,5 @@ pub def double cos(double x)
 
 pub def double tan(double x)
 {
-
+	tan
 }
