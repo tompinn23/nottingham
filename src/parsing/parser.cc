@@ -61,12 +61,12 @@
 
 	using namespace Ni;
 
-#line 65 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:397
+#line 65 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:397
 
 
 // First part of user declarations.
 
-#line 70 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:404
+#line 70 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -80,7 +80,7 @@
 
 // User implementation prologue.
 
-#line 84 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:412
+#line 84 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:412
 
 
 #ifndef YY_
@@ -147,7 +147,7 @@
 
 #line 9 "parser.y" // lalr1.cc:479
 namespace  Ni  {
-#line 151 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:479
+#line 151 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:479
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -670,169 +670,169 @@ namespace  Ni  {
   case 6:
 #line 162 "parser.y" // lalr1.cc:859
     { yystack_[0].value.as< AST::DeclarationNode* > ()->global = true; visitor.Visit(yystack_[0].value.as< AST::DeclarationNode* > (), visit);}
-#line 674 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 674 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 8:
 #line 167 "parser.y" // lalr1.cc:859
     {yylhs.value.as< AST::DeclarationNode* > () = new AST::DeclarationNode(yystack_[4].value.as< AST::Types > (), yystack_[3].value.as< std::string > (), yystack_[1].value.as< AST::ASTNode* > ()); std::cout << yystack_[1].value.as< AST::ASTNode* > () << std::endl;}
-#line 680 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 680 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 9:
 #line 171 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::Types > () = AST::StringToType(yystack_[0].value.as< std::string > ()); }
-#line 686 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 686 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 10:
 #line 175 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::FunctionNode* > () = new AST::FunctionNode(true, yystack_[4].value.as< std::string > (), yystack_[5].value.as< AST::Types > (), yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::BlockNode* > ()); }
-#line 692 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 692 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 11:
 #line 176 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::FunctionNode* > () = new AST::FunctionNode(false, yystack_[4].value.as< std::string > (), yystack_[5].value.as< AST::Types > (), yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::BlockNode* > ()); }
-#line 698 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 698 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 12:
 #line 180 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = nullptr; }
-#line 704 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 704 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 13:
 #line 181 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = nullptr; }
-#line 710 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 710 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 15:
 #line 189 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::BlockNode* > () = yystack_[0].value.as< AST::BlockNode* > (); }
-#line 716 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 716 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 16:
 #line 193 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::BlockNode* > () = new AST::BlockNode(yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 722 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 722 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 17:
 #line 194 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::BlockNode* > () = ext_blk(yystack_[1].value.as< AST::BlockNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 728 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 728 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 18:
 #line 195 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::BlockNode* > () = new AST::BlockNode(new AST::IntNode(10)); }
-#line 734 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 734 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 19:
 #line 199 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::DeclarationNode* > (); }
-#line 740 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 740 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 20:
 #line 200 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ReturnNode* > (); }
-#line 746 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 746 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 21:
 #line 204 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ReturnNode* > () = new ReturnNode(yystack_[1].value.as< AST::ASTNode* > ()); }
-#line 752 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 752 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 22:
 #line 205 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ReturnNode* > () = new ReturnNode(yystack_[1].value.as< AST::VarNode* > ()); }
-#line 758 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 758 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 23:
 #line 209 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::VarNode* > () = new VarNode(yystack_[0].value.as< std::string > ()); }
-#line 764 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 764 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 24:
 #line 214 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("+", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 770 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 770 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 25:
 #line 215 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("-", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 776 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 776 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 26:
 #line 216 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
-#line 782 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 782 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 27:
 #line 217 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
-#line 788 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 788 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 28:
 #line 221 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("*", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 794 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 794 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 29:
 #line 222 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("/", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
-#line 800 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 800 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 30:
 #line 223 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
-#line 806 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 806 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 31:
 #line 228 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[1].value.as< AST::ASTNode* > (); }
-#line 812 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 812 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 32:
 #line 229 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
-#line 818 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 818 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 33:
 #line 230 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
-#line 824 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 824 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 34:
 #line 234 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::IntNode(yystack_[0].value.as< long > ()); std::cout << yylhs.value.as< AST::ASTNode* > () << std::endl;}
-#line 830 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 830 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 35:
 #line 235 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::DoubleNode(yystack_[0].value.as< double > ()); }
-#line 836 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 836 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 36:
@@ -842,17 +842,17 @@ namespace  Ni  {
 	yystack_[0].value.as< std::string > ().erase(yystack_[0].value.as< std::string > ().size() -1);
 	yylhs.value.as< AST::ASTNode* > () = new AST::StringNode(yystack_[0].value.as< std::string > ()); 
 }
-#line 846 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 846 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 37:
 #line 247 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BoolNode(yystack_[0].value.as< bool > ()); }
-#line 852 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 852 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
 
-#line 856 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:859
+#line 856 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -1260,7 +1260,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:1167
 } //  Ni 
-#line 1264 "/home/tom/nilang-new/src/parsing/parser.cc" // lalr1.cc:1167
+#line 1264 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:1167
 #line 249 "parser.y" // lalr1.cc:1168
 
 
