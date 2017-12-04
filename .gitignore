@@ -61,3 +61,10 @@ CPackSourceConfig.cmake
 .nfs*
 
 .vscode
+
+#bison / flex
+
+lexer.cc
+parser.cc
+parser.hh
+stack.hh
