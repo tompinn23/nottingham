@@ -150,16 +150,22 @@ llvm::Type* ASTTypeToLLVMType(AST::Types ty, llvm::LLVMContext &context)
 
 void Visitor::NodeVisit(FunctionNode &node)
 {
+	llvm::Type* resType = ASTTypeToLLVMType(node.ty, module->getContext());
+	llvm::FunctionType* fnType;
 	if(node.args != NULL)
 	{
 		std::vector<llvm::Type*> tys = std::vector<llvm::Type*>();
 		for(auto *i : static_cast<ArgsNode*>(node.args)->args)
-		{
-			auto j = ASTTypeToLLVMType(i->ty, module->getContext());
-		}
-		
-		//llvm::FunctionType* fnType = llvm::FunctionType::get()
+			tys.push_back(ASTTypeToLLVMType(i->ty, module->getContext()));
+		fnType = llvm::FunctionType::get(resType, tys, false);
 	}
+	else
+		fnType = llvm::FunctionType::get(resType, false);
+	llvm::Function* fn;
+	if(node.pub)
+		fn = llvm::Function::Create(fnType, llvm::Function::ExternalLinkage, node.name, module.get());
+	else
+		fn = llvm::Function::Create(fnType, llvm::Function::PrivateLinkage, node.name, module.get());
 }
 
 void Visitor::NodeVisit(ArgNode &node)
