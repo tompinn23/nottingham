@@ -314,9 +314,6 @@ namespace  Ni  {
       // args
       // block_item
       // expr
-      // term
-      // factor
-      // litnum
       // lit
       char dummy1[sizeof(AST::ASTNode*)];
 
@@ -931,8 +928,8 @@ namespace  Ni  {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 76,     ///< Last index in yytable_.
-      yynnts_ = 19,  ///< Number of nonterminal symbols.
+      yylast_ = 71,     ///< Last index in yytable_.
+      yynnts_ = 16,  ///< Number of nonterminal symbols.
       yyfinal_ = 13, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
@@ -1021,10 +1018,7 @@ namespace  Ni  {
       case 56: // args
       case 60: // block_item
       case 63: // expr
-      case 64: // term
-      case 65: // factor
-      case 66: // litnum
-      case 67: // lit
+      case 64: // lit
         value.copy< AST::ASTNode* > (other.value);
         break;
 
@@ -1089,10 +1083,7 @@ namespace  Ni  {
       case 56: // args
       case 60: // block_item
       case 63: // expr
-      case 64: // term
-      case 65: // factor
-      case 66: // litnum
-      case 67: // lit
+      case 64: // lit
         value.copy< AST::ASTNode* > (v);
         break;
 
@@ -1247,10 +1238,7 @@ namespace  Ni  {
       case 56: // args
       case 60: // block_item
       case 63: // expr
-      case 64: // term
-      case 65: // factor
-      case 66: // litnum
-      case 67: // lit
+      case 64: // lit
         value.template destroy< AST::ASTNode* > ();
         break;
 
@@ -1322,10 +1310,7 @@ namespace  Ni  {
       case 56: // args
       case 60: // block_item
       case 63: // expr
-      case 64: // term
-      case 65: // factor
-      case 66: // litnum
-      case 67: // lit
+      case 64: // lit
         value.move< AST::ASTNode* > (s.value);
         break;
 
@@ -1719,7 +1704,7 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:377
 } //  Ni 
-#line 1723 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
+#line 1708 "/home/tom/nilang-new/src/parsing/parser.hh" // lalr1.cc:377
 
 
 

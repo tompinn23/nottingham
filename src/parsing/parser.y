@@ -140,10 +140,21 @@ namespace Ni {
 %type <AST::DeclarationNode*> item_dec
 %type <AST::FunctionNode*> fn
 %type <AST::BlockNode*> block_items block
-%type <AST::ASTNode*> expr lit litnum term factor block_item args
+%type <AST::ASTNode*> expr lit block_item args
 %type <AST::ReturnNode*> return
 %type <AST::VarNode*> var
 %start program
+
+%right EQ MINUSEQ PLUSEQ MULEQ DIVEQ
+%left OROR
+%left ANDAND
+%left EQEQ
+%left LT GT LE GE
+%left AND
+%left PLUS MINUS
+%left MUL DIV
+
+%precedence LEFTBRACE LEFTPAR
 
 %%
 
@@ -211,40 +222,24 @@ var
 
 
 expr
-: expr PLUS term { $$ = new AST::BinOpNode("+", $1, $3); }
-| expr MINUS term { $$ = new AST::BinOpNode("-", $1, $3); }
-| term { $$ = $1; }
+: expr PLUS expr { $$ = new AST::BinOpNode("+", $1, $3); }
+| expr MINUS expr { $$ = new AST::BinOpNode("-", $1, $3); }
+| expr MUL expr { $$ = new AST::BinOpNode("*", $1, $3); }
+| expr DIV expr { $$ = new AST::BinOpNode("/", $1, $3); }
+|LEFTPAR expr RIGHTPAR { $$ = $2; }
 | lit { $$ = $1; }
 ;
 
-term
-: term MUL factor { $$ = new AST::BinOpNode("*", $1, $3); }
-| term DIV factor { $$ = new AST::BinOpNode("/", $1, $3); }
-| factor { $$ = $1; } 
-;
-
-
-factor
-: LEFTPAR expr RIGHTPAR { $$ = $2; }
-| MINUS factor { $$ = $2; }
-| litnum { $$ = $1; } 
-;
-
-litnum
-: INT { $$ = new AST::IntNode($1); std::cout << $$ << std::endl;}
-| DOUBLE { $$ = new AST::DoubleNode($1); }
-;
-
-
-
 lit
-: STRING 
+:STRING 
 { 
 	$1.erase(0, 1);
 	$1.erase($1.size() -1);
 	$$ = new AST::StringNode($1); 
 }
 | BOOL { $$ = new AST::BoolNode($1); }
+|INT { $$ = new AST::IntNode($1); std::cout << $$ << std::endl;}
+| DOUBLE { $$ = new AST::DoubleNode($1); }
 ;
 %%
 
