@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <string>
 #include "driver/driver.h"
 #include "driver/args.hxx"
 #include "driver/rang.hpp"
@@ -10,12 +11,11 @@ using namespace llvm;
 using namespace std;
 using namespace Ni;
 
-
-
 int main(int argc, char** argv)
 {
 	args::ArgumentParser argParser("Nilang Compiler");
 	args::HelpFlag help(argParser, "help", "Display this help menu", {'h', "help"});
+	args::Flag print(argParser,  "print",  "Print llvm ir to output",{'p', "print"});
 	args::Positional<std::string> file(argParser, "file", "Input File");
 	try
 	{
@@ -44,7 +44,6 @@ int main(int argc, char** argv)
 		return 1;
 	}
 	ifstream* ifs = new ifstream();
-	Driver drive;
 	ifs->open(file.Get(), ifstream::in);
 	if(ifs->fail())
 	{
@@ -52,9 +51,12 @@ int main(int argc, char** argv)
 		delete ifs;
 		return 1;
 	}
+	Driver drive;
 	drive.SwitchStream(ifs);
+	std::cout << rang::style::bold << rang::fg::green << "info: " << rang::style::reset << "parsing " << file.Get() << std::endl;
 	int i = drive.parse();
-	drive.DumpModule();
+	if(print)
+		drive.DumpModule();
 	delete ifs;
 	return i;
 }

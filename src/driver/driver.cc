@@ -38,12 +38,10 @@ Driver::~Driver()
 	
 }
 
-void Driver::AddToList(ASTNode *ptr)
-{
-	ast.push_back(ptr);
-}
 
 int Driver::parse() {
+	line = 0;
+	col = 0;
 	return parser.parse();
 }
 
@@ -57,4 +55,7 @@ void Driver::SwitchStream(std::istream *is) {
 	lexer.switch_streams(is);
 }
 
+void Driver::setLine(unsigned int line)
+{
 
+}
