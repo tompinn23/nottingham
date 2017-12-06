@@ -1,15 +1,14 @@
-# Nilang Compiler V2.1
-Not really v2 just internal versioning.
+# Nottingham Compiler
 
-This is the repository for the NiLang Compiler.  
+This is the repository for the Nottingham Compiler.  
 Before we dig in here are some handy repository to check out:
-* [Nilang Specification](https://github.com/tompinn23/NI-Spec) Still not fully fleshed out, writing it is boring
-* [Nilang V1](https://github.com/tompinn23/NiLang) OG NiLang Compiler built in C# and pretty poor imo.
-* [Nilang Standard Library](https://github.com/tompinn23/NiLang-Standard-Library) So thats the standard library its pretty thin 
+* [Nottingham Specification](https://github.com/tompinn23/NI-Spec) Still not fully fleshed out, writing it is boring
+* [Nottingham V1](https://github.com/tompinn23/NiLang) OG NiLang Compiler built in C# and pretty poor imo.
+* [Nottingham Standard Library](https://github.com/tompinn23/NiLang-Standard-Library) So thats the standard library its pretty thin 
 
 ## Introduction
 
-~~Right so here we are and you wanna build NiLang well ngl it kinda takes the piss and is only tested on Windows 7/ 10 Visual Studio 2017 Community Edition 64bit and.~~
+~~Right so here we are and you wanna build Nottingham well ngl it kinda takes the piss and is only tested on Windows 7/ 10 Visual Studio 2017 Community Edition 64bit and.~~
 
 We now have a build system!!!!!!!!!!.
 
@@ -30,8 +29,8 @@ Cmake can be downloaded and installed from [cmake.org](https://cmake.org/downloa
 You will also need visual studio I use Visual Studio 2017 which can be found [here](https://www.visualstudio.com/#)
 To build nilang do
 ```
-git clone --recursive https://github.com/ni-lang/nilang
-cd nilang
+git clone --recursive https://bitbucket.org/tomjp/nottingham
+cd nottingham
 cmake -H. -Bbuild
 ```
 If on windows 64 bit use the following command instead
@@ -49,8 +48,8 @@ Flex and bison may already be installed but may not be a high enough version.
 
 To build nilang do
 ```
-git clone https://github.com/ni-lang/nilang
-cd nilang
+git clone https://bitbucket.org/tomjp/nottingham
+cd nottingham
 cmake -H. -Bbuild
 cmake --build build
 ```
@@ -59,11 +58,11 @@ To increase the build times on a multi-core computer. I use the [ninja](https://
 
 ### Specifics
 
-Current version of nilang have been compiled with clang on both windows and linux. But although untested should compile fine under msvc or gcc
+Current version of nottingham have been compiled with clang on both windows and linux. But although untested should compile fine under msvc or gcc
 
 
 Warning the build takes a long time first time as we have to build llvm
 ## License
 
-Nilang V2.1 is released under the GNU GPL V3 license. Which can be found [here](https://www.gnu.org/licenses/gpl-3.0.en.html)
+Nottingham is released under the GNU GPL V3 license. Which can be found [here](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
