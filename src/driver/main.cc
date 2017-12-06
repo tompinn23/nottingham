@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 	Driver drive;
-	drive.SwitchStream(ifs);
+	drive.SwitchStream(ifs, &file.Get());
 	std::cout << rang::style::bold << rang::fg::green << "info: " << rang::style::reset << "parsing " << file.Get() << std::endl;
 	int i = drive.parse();
 	if(print)

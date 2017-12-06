@@ -15,7 +15,7 @@ public:
 	Driver();
 	~Driver();
 	int parse();
-	void SwitchStream(std::istream *is);
+	void SwitchStream(std::istream *is, std::string* filename);
 	void DumpModule();	
 
 	friend class Parser;
@@ -27,6 +27,7 @@ private:
 	Lexer lexer;
 	Parser parser;
 	Visitor visitor;
+	std::string* filename;
 	std::vector<ASTNode*> ast;
 	unsigned int col;
 	unsigned int line;

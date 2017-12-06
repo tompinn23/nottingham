@@ -50,12 +50,18 @@ void Driver::DumpModule()
 	visitor.module->print(llvm::errs(), nullptr);
 }
 
-void Driver::SwitchStream(std::istream *is) {
+void Driver::SwitchStream(std::istream *is, std::string* filename) {
 	//TODO: Clear ast when stream switched
 	lexer.switch_streams(is);
+	this->filename = filename;
 }
 
 void Driver::setLine(unsigned int line)
 {
+	this->line = line;
+}
 
+void Driver::setColumn(unsigned int col)
+{
+	this->col = col;
 }

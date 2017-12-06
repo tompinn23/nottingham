@@ -192,12 +192,13 @@ block
 block_items
 : block_item { $$ = new AST::BlockNode($1); }
 | block_items block_item { $$ = ext_blk($1, $2); }
-| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
+
 ;
 
 block_item
 : item_dec { $$ = $1; } 
 | return { $$ = $1; }
+| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
 ;
 
 return
@@ -251,6 +252,5 @@ lit
 #include "driver/rang.hpp"
 void Ni::Parser::error(const location &loc, const std::string &message)
 {
-	cerr << rang::style::bold << rang::fg::red << "error: " << rang::style::reset << message << rang::style::bold << rang::fg::red <<  "at" << rang::style::reset << endl;
-
+	cerr << rang::style::bold << rang::fg::red << "error: " << rang::style::reset << message << rang::style::bold << rang::fg::red <<  " at " << rang::style::reset << loc << endl;
 }

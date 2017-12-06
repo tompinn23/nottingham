@@ -757,115 +757,115 @@ namespace  Ni  {
     break;
 
   case 18:
-#line 195 "parser.y" // lalr1.cc:859
-    { yylhs.value.as< AST::BlockNode* > () = new AST::BlockNode(new AST::IntNode(10)); }
+#line 199 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::DeclarationNode* > (); }
 #line 763 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 19:
-#line 199 "parser.y" // lalr1.cc:859
-    { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::DeclarationNode* > (); }
+#line 200 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ReturnNode* > (); }
 #line 769 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 20:
-#line 200 "parser.y" // lalr1.cc:859
-    { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ReturnNode* > (); }
+#line 201 "parser.y" // lalr1.cc:859
+    { yylhs.value.as< AST::ASTNode* > () = new AST::BlockNode(new AST::IntNode(10)); }
 #line 775 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 21:
-#line 204 "parser.y" // lalr1.cc:859
+#line 205 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ReturnNode* > () = new ReturnNode(yystack_[1].value.as< AST::ASTNode* > ()); }
 #line 781 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 22:
-#line 205 "parser.y" // lalr1.cc:859
+#line 206 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ReturnNode* > () = new ReturnNode(yystack_[1].value.as< AST::VarNode* > ()); }
 #line 787 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 23:
-#line 209 "parser.y" // lalr1.cc:859
+#line 210 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::VarNode* > () = new VarNode(yystack_[0].value.as< std::string > ()); }
 #line 793 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 24:
-#line 214 "parser.y" // lalr1.cc:859
+#line 215 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("+", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
 #line 799 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 25:
-#line 215 "parser.y" // lalr1.cc:859
+#line 216 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("-", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
 #line 805 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 26:
-#line 216 "parser.y" // lalr1.cc:859
+#line 217 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
 #line 811 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 27:
-#line 217 "parser.y" // lalr1.cc:859
+#line 218 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
 #line 817 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 28:
-#line 221 "parser.y" // lalr1.cc:859
+#line 222 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("*", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
 #line 823 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 29:
-#line 222 "parser.y" // lalr1.cc:859
+#line 223 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BinOpNode("/", yystack_[2].value.as< AST::ASTNode* > (), yystack_[0].value.as< AST::ASTNode* > ()); }
 #line 829 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 30:
-#line 223 "parser.y" // lalr1.cc:859
+#line 224 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
 #line 835 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 31:
-#line 228 "parser.y" // lalr1.cc:859
+#line 229 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[1].value.as< AST::ASTNode* > (); }
 #line 841 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 32:
-#line 229 "parser.y" // lalr1.cc:859
+#line 230 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
 #line 847 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 33:
-#line 230 "parser.y" // lalr1.cc:859
+#line 231 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = yystack_[0].value.as< AST::ASTNode* > (); }
 #line 853 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 34:
-#line 234 "parser.y" // lalr1.cc:859
+#line 235 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::IntNode(yystack_[0].value.as< long > ());}
 #line 859 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 35:
-#line 235 "parser.y" // lalr1.cc:859
+#line 236 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::DoubleNode(yystack_[0].value.as< double > ()); }
 #line 865 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
 
   case 36:
-#line 242 "parser.y" // lalr1.cc:859
+#line 243 "parser.y" // lalr1.cc:859
     { 
 	yystack_[0].value.as< std::string > ().erase(0, 1);
 	yystack_[0].value.as< std::string > ().erase(yystack_[0].value.as< std::string > ().size() -1);
@@ -875,7 +875,7 @@ namespace  Ni  {
     break;
 
   case 37:
-#line 247 "parser.y" // lalr1.cc:859
+#line 248 "parser.y" // lalr1.cc:859
     { yylhs.value.as< AST::ASTNode* > () = new AST::BoolNode(yystack_[0].value.as< bool > ()); }
 #line 881 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:859
     break;
@@ -1143,13 +1143,13 @@ namespace  Ni  {
   const signed char
    Parser ::yypact_[] =
   {
-       0,   -41,   -15,    40,   -41,    46,    -2,   -41,   -41,    11,
-     -41,    12,   -15,   -41,   -41,    16,    34,    13,     7,   -15,
-      41,     7,   -11,   -41,   -41,   -41,   -41,    -5,    14,   -41,
-     -41,   -41,    15,    42,   -41,   -15,     2,   -41,   -41,   -11,
-     -11,   -11,   -11,   -41,    43,    45,   -41,    14,    14,   -41,
-     -41,     1,   -41,    43,    -8,   -41,   -41,     3,   -41,   -41,
-     -41,   -41,    48,    -4,   -41,   -41,   -41
+       0,   -41,   -15,     4,   -41,    43,    -2,   -41,   -41,    -1,
+     -41,     9,   -15,   -41,   -41,    21,    37,    11,     7,   -15,
+      39,     7,   -11,   -41,   -41,   -41,   -41,    -5,    14,   -41,
+     -41,   -41,    13,    40,   -41,   -15,     2,   -41,   -41,   -11,
+     -11,   -11,   -11,   -41,    41,    44,   -41,    14,    14,   -41,
+     -41,     1,   -41,    41,    -8,   -41,   -41,     1,   -41,   -41,
+     -41,   -41,    45,    -4,   -41,   -41,   -41
   };
 
   const unsigned char
@@ -1160,15 +1160,15 @@ namespace  Ni  {
        0,     0,     0,    34,    35,    37,    36,     0,    26,    30,
       33,    27,     0,     0,    12,    13,     0,    32,     8,     0,
        0,     0,     0,    14,     0,     0,    31,    25,    24,    28,
-      29,     0,    11,     0,     0,    18,    19,    15,    16,    20,
+      29,     0,    11,     0,     0,    20,    18,    15,    16,    19,
       10,    23,     0,     0,    17,    22,    21
   };
 
   const signed char
    Parser ::yypgoto_[] =
   {
-     -41,   -41,   -41,    58,   -40,     6,   -41,    33,   -41,    18,
-     -41,    19,   -41,   -41,   -19,    17,   -12,   -41,   -41
+     -41,   -41,   -41,    56,   -40,     6,   -41,    31,   -41,    15,
+     -41,    12,   -41,   -41,   -19,    10,   -12,   -41,   -41
   };
 
   const signed char
@@ -1181,27 +1181,25 @@ namespace  Ni  {
   const unsigned char
    Parser ::yytable_[] =
   {
-       1,     2,    36,     2,     3,    54,     3,    54,    11,    21,
+       1,     2,    36,     2,     3,    54,     3,    12,    11,    21,
       37,    56,    21,    22,    38,    66,    22,    56,    17,    39,
       39,    40,    40,    46,    55,    32,    39,    21,    40,    49,
       50,    22,     4,    23,    24,    63,    23,    24,    25,    61,
-      26,    32,    41,    12,    42,     4,    13,     4,     4,    18,
-       4,    23,    24,    25,    19,    26,    47,    48,    15,    16,
-      20,    35,    43,    44,    14,    51,    53,    65,    45,     0,
-       0,    60,     0,     0,     0,     0,    64
+      26,    32,    41,    13,    42,     4,    15,     4,     4,    47,
+      48,    23,    24,    25,    18,    26,    16,    19,    20,    35,
+      43,    44,    14,    51,    65,    53,    45,     0,    60,    64
   };
 
   const signed char
    Parser ::yycheck_[] =
   {
-       0,     3,    21,     3,     6,     4,     6,     4,     2,    20,
+       0,     3,    21,     3,     6,     4,     6,     3,     2,    20,
       22,    51,    20,    24,    19,    19,    24,    57,    12,    24,
       24,    26,    26,    21,    23,    19,    24,    20,    26,    41,
       42,    24,    47,    44,    45,    54,    44,    45,    46,    47,
-      48,    35,    28,     3,    30,    47,     0,    47,    47,    33,
-      47,    44,    45,    46,    20,    48,    39,    40,    47,    47,
-      47,    20,    47,    21,     6,    22,    21,    19,    35,    -1,
-      -1,    53,    -1,    -1,    -1,    -1,    57
+      48,    35,    28,     0,    30,    47,    47,    47,    47,    39,
+      40,    44,    45,    46,    33,    48,    47,    20,    47,    20,
+      47,    21,     6,    22,    19,    21,    35,    -1,    53,    57
   };
 
   const unsigned char
@@ -1220,7 +1218,7 @@ namespace  Ni  {
    Parser ::yyr1_[] =
   {
        0,    49,    50,    51,    51,    51,    52,    52,    53,    54,
-      55,    55,    56,    56,    57,    58,    59,    59,    59,    60,
+      55,    55,    56,    56,    57,    58,    59,    59,    60,    60,
       60,    61,    61,    62,    63,    63,    63,    63,    64,    64,
       64,    65,    65,    65,    66,    66,    67,    67
   };
@@ -1257,9 +1255,9 @@ namespace  Ni  {
    Parser ::yyrline_[] =
   {
        0,   151,   151,   155,   156,   157,   162,   163,   167,   171,
-     175,   176,   180,   181,   185,   189,   193,   194,   195,   199,
-     200,   204,   205,   209,   214,   215,   216,   217,   221,   222,
-     223,   228,   229,   230,   234,   235,   241,   247
+     175,   176,   180,   181,   185,   189,   193,   194,   199,   200,
+     201,   205,   206,   210,   215,   216,   217,   218,   222,   223,
+     224,   229,   230,   231,   235,   236,   242,   248
   };
 
   // Print the state stack on the debug stream.
@@ -1294,13 +1292,12 @@ namespace  Ni  {
 
 #line 9 "parser.y" // lalr1.cc:1167
 } //  Ni 
-#line 1298 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:1167
-#line 249 "parser.y" // lalr1.cc:1168
+#line 1296 "/home/tom/nilang/src/parsing/parser.cc" // lalr1.cc:1167
+#line 250 "parser.y" // lalr1.cc:1168
 
 
 #include "driver/rang.hpp"
 void Ni::Parser::error(const location &loc, const std::string &message)
 {
-	cerr << rang::style::bold << rang::fg::red << "error: " << rang::style::reset << message << rang::style::bold << rang::fg::red <<  "at" << rang::style::reset << endl;
-
+	cerr << rang::style::bold << rang::fg::red << "error: " << rang::style::reset << message << rang::style::bold << rang::fg::red <<  " at " << rang::style::reset << loc << endl;
 }

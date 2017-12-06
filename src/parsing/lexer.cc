@@ -189,8 +189,27 @@ extern int yyleng;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                int yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -489,6 +508,13 @@ static const flex_int16_t yy_chk[181] =
       124,  124,  124,  124,  124,  124,  124,  124,  124,  124
     } ;
 
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[51] =
+    {   0,
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
  */
@@ -505,11 +531,12 @@ static const flex_int16_t yy_chk[181] =
 	#include "driver/driver.h"
 	#include "location.hh"
 	using namespace std;
-	#define YY_USER_ACTION driver.increaseLocation(yyleng);
+	#define YY_USER_ACTION driver.setLine(yylineno); \
+		driver.setColumn(yyleng);
 	#define yyterminate() return Ni::Parser::make_EOF();
 
-#line 511 "/home/tom/nilang/src/parsing/lexer.cc"
-#line 512 "/home/tom/nilang/src/parsing/lexer.cc"
+#line 538 "/home/tom/nilang/src/parsing/lexer.cc"
+#line 539 "/home/tom/nilang/src/parsing/lexer.cc"
 
 #define INITIAL 0
 
@@ -641,11 +668,11 @@ YY_DECL
 		}
 
 	{
-#line 24 "lexer.l"
+#line 26 "lexer.l"
 
 
 
-#line 648 "/home/tom/nilang/src/parsing/lexer.cc"
+#line 675 "/home/tom/nilang/src/parsing/lexer.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -691,6 +718,16 @@ yy_find_action:
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			int yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
+
 do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
@@ -705,263 +742,263 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 27 "lexer.l"
+#line 29 "lexer.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 29 "lexer.l"
-{ return Ni::Parser::make_DEF(Ni::location(driver.location())); }
+#line 31 "lexer.l"
+{ return Ni::Parser::make_DEF(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 30 "lexer.l"
-{ return Ni::Parser::make_RETURN(Ni::location(driver.location()); }
+#line 32 "lexer.l"
+{ return Ni::Parser::make_RETURN(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 31 "lexer.l"
-{return Ni::Parser::make_CLASS(Ni::location(driver.location()); }
+#line 33 "lexer.l"
+{return Ni::Parser::make_CLASS(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 32 "lexer.l"
-{ return Ni::Parser::make_PUB(Ni::location(driver.location()); }
+#line 34 "lexer.l"
+{ return Ni::Parser::make_PUB(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "lexer.l"
-{ return Ni::Parser::make_USE(Ni::location(driver.location()); }
+#line 35 "lexer.l"
+{ return Ni::Parser::make_USE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 34 "lexer.l"
-{ return Ni::Parser::make_SELF(Ni::location(driver.location()); }
+#line 36 "lexer.l"
+{ return Ni::Parser::make_SELF(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 35 "lexer.l"
-{ return Ni::Parser::make_IF(Ni::location(driver.location()); }
+#line 37 "lexer.l"
+{ return Ni::Parser::make_IF(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "lexer.l"
-{ return Ni::Parser::make_ELSE(Ni::location(driver.location()); }
+#line 38 "lexer.l"
+{ return Ni::Parser::make_ELSE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 37 "lexer.l"
-{ return Ni::Parser::make_ELIF(Ni::location(driver.location()); }
+#line 39 "lexer.l"
+{ return Ni::Parser::make_ELIF(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 38 "lexer.l"
-{ return Ni::Parser::make_SWITCH(Ni::location(driver.location()); }
+#line 40 "lexer.l"
+{ return Ni::Parser::make_SWITCH(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 39 "lexer.l"
-{ return Ni::Parser::make_CASE(Ni::location(driver.location()); }
+#line 41 "lexer.l"
+{ return Ni::Parser::make_CASE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 40 "lexer.l"
-{ return Ni::Parser::make_INTERFACE(Ni::location(driver.location()); }
+#line 42 "lexer.l"
+{ return Ni::Parser::make_INTERFACE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 41 "lexer.l"
-{ return Ni::Parser::make_OVERRIDE(Ni::location(driver.location()); }
+#line 43 "lexer.l"
+{ return Ni::Parser::make_OVERRIDE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 42 "lexer.l"
-{ return Ni::Parser::make_EXTENDS(Ni::location(driver.location()); }
+#line 44 "lexer.l"
+{ return Ni::Parser::make_EXTENDS(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 43 "lexer.l"
-{ return Ni::Parser::make_IMPLEMENTS(Ni::location(driver.location()); }
+#line 45 "lexer.l"
+{ return Ni::Parser::make_IMPLEMENTS(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "lexer.l"
-{ return Ni::Parser::make_TYPE(Ni::location(driver.location()); }
+#line 47 "lexer.l"
+{ return Ni::Parser::make_TYPE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 47 "lexer.l"
-{ return Ni::Parser::make_END_STATEMENT(Ni::location(driver.location()); }
+#line 49 "lexer.l"
+{ return Ni::Parser::make_END_STATEMENT(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 49 "lexer.l"
-{ return Ni::Parser::make_BOOL(true); }
+#line 51 "lexer.l"
+{ return Ni::Parser::make_BOOL(true, Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 51 "lexer.l"
-{ return Ni::Parser::make_BOOL(false); }
+#line 53 "lexer.l"
+{ return Ni::Parser::make_BOOL(false, Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 53 "lexer.l"
-{ return Ni::Parser::make_LEFTPAR(Ni::location(driver.location()); }
+#line 55 "lexer.l"
+{ return Ni::Parser::make_LEFTPAR(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 54 "lexer.l"
-{ return Ni::Parser::make_RIGHTPAR(Ni::location(driver.location()); }
+#line 56 "lexer.l"
+{ return Ni::Parser::make_RIGHTPAR(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 55 "lexer.l"
-{ return Ni::Parser::make_LEFTBRACE(Ni::location(driver.location()); }
+#line 57 "lexer.l"
+{ return Ni::Parser::make_LEFTBRACE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 56 "lexer.l"
-{ return Ni::Parser::make_RIGHTBRACE(Ni::location(driver.location()); }
+#line 58 "lexer.l"
+{ return Ni::Parser::make_RIGHTBRACE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 59 "lexer.l"
-{ return Ni::Parser::make_MINUS(Ni::location(driver.location()); }
+#line 61 "lexer.l"
+{ return Ni::Parser::make_MINUS(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 60 "lexer.l"
-{ return Ni::Parser::make_MINUSEQ(Ni::location(driver.location()); }
+#line 62 "lexer.l"
+{ return Ni::Parser::make_MINUSEQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 61 "lexer.l"
-{ return Ni::Parser::make_PLUS(Ni::location(driver.location()); }
+#line 63 "lexer.l"
+{ return Ni::Parser::make_PLUS(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 62 "lexer.l"
-{ return Ni::Parser::make_PLUSEQ(Ni::location(driver.location()); }
+#line 64 "lexer.l"
+{ return Ni::Parser::make_PLUSEQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 63 "lexer.l"
-{ return Ni::Parser::make_MUL(Ni::location(driver.location()); }
+#line 65 "lexer.l"
+{ return Ni::Parser::make_MUL(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 64 "lexer.l"
-{ return Ni::Parser::make_MULEQ(Ni::location(driver.location()); }
+#line 66 "lexer.l"
+{ return Ni::Parser::make_MULEQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 65 "lexer.l"
-{ return Ni::Parser::make_DIV(Ni::location(driver.location()); }
+#line 67 "lexer.l"
+{ return Ni::Parser::make_DIV(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 66 "lexer.l"
-{ return Ni::Parser::make_DIVEQ(Ni::location(driver.location()); }
+#line 68 "lexer.l"
+{ return Ni::Parser::make_DIVEQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 68 "lexer.l"
-{ return Ni::Parser::make_EQEQ(Ni::location(driver.location()); }
+#line 70 "lexer.l"
+{ return Ni::Parser::make_EQEQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 69 "lexer.l"
-{ return Ni::Parser::make_EQ(Ni::location(driver.location()); }
+#line 71 "lexer.l"
+{ return Ni::Parser::make_EQ(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 70 "lexer.l"
-{ return Ni::Parser::make_NE(Ni::location(driver.location()); }
+#line 72 "lexer.l"
+{ return Ni::Parser::make_NE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 71 "lexer.l"
-{ return Ni::Parser::make_NOT(Ni::location(driver.location()); }
+#line 73 "lexer.l"
+{ return Ni::Parser::make_NOT(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 72 "lexer.l"
-{ return Ni::Parser::make_LE(Ni::location(driver.location()); }
+#line 74 "lexer.l"
+{ return Ni::Parser::make_LE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 73 "lexer.l"
-{ return Ni::Parser::make_LT(Ni::location(driver.location()); }
+#line 75 "lexer.l"
+{ return Ni::Parser::make_LT(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 74 "lexer.l"
-{ return Ni::Parser::make_GE(Ni::location(driver.location()); }
+#line 76 "lexer.l"
+{ return Ni::Parser::make_GE(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 75 "lexer.l"
-{ return Ni::Parser::make_GT(Ni::location(driver.location()); }
+#line 77 "lexer.l"
+{ return Ni::Parser::make_GT(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 76 "lexer.l"
-{return Ni::Parser::make_ANDAND(Ni::location(driver.location()); }
+#line 78 "lexer.l"
+{return Ni::Parser::make_ANDAND(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 77 "lexer.l"
-{ return Ni::Parser::make_AND(Ni::location(driver.location()); }
+#line 79 "lexer.l"
+{ return Ni::Parser::make_AND(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 78 "lexer.l"
-{ return Ni::Parser::make_OROR(Ni::location(driver.location()); }
+#line 80 "lexer.l"
+{ return Ni::Parser::make_OROR(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 79 "lexer.l"
-{ return Ni::Parser::make_OR(Ni::location(driver.location()); }
+#line 81 "lexer.l"
+{ return Ni::Parser::make_OR(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 81 "lexer.l"
-{ return Ni::Parser::make_INT(atol(yytext), Ni::location(driver.location()); }
+#line 83 "lexer.l"
+{ return Ni::Parser::make_INT(atol(yytext), Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 83 "lexer.l"
+#line 85 "lexer.l"
 {
-	return Ni::Parser::make_DOUBLE(atof(yytext), Ni::location(driver.location());
+	return Ni::Parser::make_DOUBLE(atof(yytext), Ni::location(driver.filename, driver.line, driver.col));
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 87 "lexer.l"
+#line 89 "lexer.l"
 {
-	return Ni::Parser::make_IDENTIFIER(std::string(yytext), Ni::location(driver.location()) ;
+	return Ni::Parser::make_IDENTIFIER(yytext, Ni::location(driver.filename, driver.line, driver.col)) ;
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 91 "lexer.l"
-{ return Ni::Parser::make_STRING(std::string(yytext), Ni::location(driver.location()); }
+#line 93 "lexer.l"
+{ return Ni::Parser::make_STRING(yytext, Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 93 "lexer.l"
+#line 95 "lexer.l"
 { cout << "Couldn't lex: " << yytext << endl; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 95 "lexer.l"
-{ return Ni::Parser::make_EOF(Ni::location(driver.location()); }
+#line 97 "lexer.l"
+{ return Ni::Parser::make_EOF(Ni::location(driver.filename, driver.line, driver.col)); }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 97 "lexer.l"
+#line 99 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 964 "/home/tom/nilang/src/parsing/lexer.cc"
+#line 1001 "/home/tom/nilang/src/parsing/lexer.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1446,6 +1483,10 @@ int yyFlexLexer::yy_get_next_buffer()
 
 	*--yy_cp = (char) c;
 
+    if ( c == '\n' ){
+        --yylineno;
+    }
+
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
@@ -1515,6 +1556,11 @@ int yyFlexLexer::yy_get_next_buffer()
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -1922,7 +1968,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 97 "lexer.l"
+#line 99 "lexer.l"
 
 
 
