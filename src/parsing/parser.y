@@ -76,7 +76,7 @@ namespace Ni {
 %define parse.trace
 %define parse.error verbose
 %define api.token.prefix {TOKEN_}
-
+%locations
 // Keywords & Misc
 %token DEF 
 %token RETURN
@@ -164,7 +164,7 @@ item
 ;
 
 item_dec
-: ty IDENTIFIER EQ expr END_STATEMENT {$$ = new AST::DeclarationNode($1, $2, $4); std::cout << $4 << std::endl;}
+: ty IDENTIFIER EQ expr END_STATEMENT {$$ = new AST::DeclarationNode($1, $2, $4); }
 ;
 
 ty
@@ -192,12 +192,13 @@ block
 block_items
 : block_item { $$ = new AST::BlockNode($1); }
 | block_items block_item { $$ = ext_blk($1, $2); }
-| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
+
 ;
 
 block_item
 : item_dec { $$ = $1; } 
 | return { $$ = $1; }
+| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
 ;
 
 return
@@ -231,7 +232,7 @@ factor
 ;
 
 litnum
-: INT { $$ = new AST::IntNode($1); std::cout << $$ << std::endl;}
+: INT { $$ = new AST::IntNode($1);}
 | DOUBLE { $$ = new AST::DoubleNode($1); }
 ;
 
@@ -248,8 +249,8 @@ lit
 ;
 %%
 
-void Ni::Parser::error(const std::string &message)
+#include "driver/rang.hpp"
+void Ni::Parser::error(const location &loc, const std::string &message)
 {
-	cout << "Error: " << message << endl;
-
+	cerr << rang::style::bold << rang::fg::red << "error: " << rang::style::reset << message << rang::style::bold << rang::fg::red <<  " at " << rang::style::reset << loc << endl;
 }

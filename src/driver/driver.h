@@ -15,17 +15,22 @@ public:
 	Driver();
 	~Driver();
 	int parse();
-	void AddToList(ASTNode *ptr);
-	void SwitchStream(std::istream *is);
+	void SwitchStream(std::istream *is, std::string* filename);
 	void DumpModule();	
 
 	friend class Parser;
 	friend class Lexer;
 private:
+	ASTNode* addNode(ASTNode* node) {ast.push_back(node); return node; }
+	void setColumn(unsigned int col);
+	void setLine(unsigned int line);
 	Lexer lexer;
 	Parser parser;
 	Visitor visitor;
+	std::string* filename;
 	std::vector<ASTNode*> ast;
+	unsigned int col;
+	unsigned int line;
 };
 
 }

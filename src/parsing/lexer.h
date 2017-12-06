@@ -16,8 +16,6 @@
 
 namespace Ni {
 
-class Driver;
-
 class Lexer : public yyFlexLexer {
 public:
 	Lexer(Driver &drive): driver(drive) {}

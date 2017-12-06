@@ -37,7 +37,6 @@ Visitor::~Visitor()
 
 void Visitor::NodeVisit(IntNode &node)
 {
-	std::cout << "WOO IT WORKS" << std::endl;
 	valueStack.push(llvm::ConstantInt::get(llvm::Type::getInt64Ty(module->getContext()), node.value, true));
 }
 void Visitor::NodeVisit(DoubleNode &node)
@@ -96,7 +95,7 @@ void Visitor::NodeVisit(DeclarationNode &node)
             glob->setInitializer(llvm::dyn_cast<llvm::ConstantDataArray>(initValue));
         }
 	}
-	std::cout << "YAYA" << std::endl;
+
 }
 
 void Visitor::NodeVisit(BinOpNode &node)
