@@ -14,15 +14,20 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/version.h.in
     ${CMAKE_BINARY_DIR}/version.h
 )
 
 
+<<<<<<< HEAD
 add_executable(notts main.cc driver.cc)
 add_dependencies(notts nottsAST nottsCodegen nottsParsing)
+=======
+add_executable(nilang main.cc driver.cc)
+include_directories(${CMAKE_BINARY_DIR})
+add_dependencies(nilang NilangAST NilangCodegen NilangParsing)
+>>>>>>> remotes/origin/master
 llvm_map_components_to_libnames(llvm_libs
 asmparser 
 asmprinter 
