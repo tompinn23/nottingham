@@ -1,6 +1,6 @@
-project (NILANG VERSION 0.1.0)
+project (notts VERSION 0.1.0)
 
-set(NILANG_MAIN_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src CACHE STRING "The top level include directory")
+set(notts_MAIN_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src CACHE STRING "The top level include directory")
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
@@ -52,7 +52,7 @@ IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
     ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
   )
 ENDIF()
-include_directories(${NILANG_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR} ${BISON_Parser_OUTPUT_HEADER} ${CMAKE_SOURCE_DIR}/src/parsing)
+include_directories(${notts_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR} ${BISON_Parser_OUTPUT_HEADER} ${CMAKE_SOURCE_DIR}/src/parsing)
 add_subdirectory(parsing)
 add_subdirectory(ast)
 add_subdirectory(codegen)

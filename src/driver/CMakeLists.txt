@@ -1,6 +1,6 @@
 
-add_executable(nilang main.cc driver.cc)
-add_dependencies(nilang NilangAST NilangCodegen NilangParsing)
+add_executable(notts main.cc driver.cc)
+add_dependencies(notts nottsAST nottsCodegen nottsParsing)
 llvm_map_components_to_libnames(llvm_libs
 asmparser 
 asmprinter 
@@ -53,4 +53,4 @@ x86disassembler
 x86info 
 x86utils
 )
-target_link_libraries(nilang ${llvm_libs} NilangAST NilangCodegen NilangParsing)
+target_link_libraries(notts ${llvm_libs} nottsAST nottsCodegen nottsParsing)

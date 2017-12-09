@@ -8,10 +8,10 @@ ADD_FLEX_BISON_DEPENDENCY(Lexer Parser)
 set(BISON_HEADER_DIR ${CMAKE_CURRENT_BINARY_DIR} PARENT_SCOPE)
 message(${BISON_Parser_OUTPUTS})
 
-add_library(NilangParsing
+add_library(nottsParsing
 	dummy.cc
 	${BISON_Parser_OUTPUTS}
 	${FLEX_Lexer_OUTPUTS}
 	)
-add_dependencies(NilangParsing NilangAST NilangCodegen)
-target_link_libraries(NilangParsing NilangAST NilangCodegen)
+add_dependencies(nottsParsing nottsAST nottsCodegen)
+target_link_libraries(nottsParsing nottsAST nottsCodegen)

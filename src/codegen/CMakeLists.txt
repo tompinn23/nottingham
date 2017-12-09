@@ -1,3 +1,3 @@
-add_library(NilangCodegen STATIC 
+add_library(nottsCodegen STATIC 
 	Visitor.cc)
 
