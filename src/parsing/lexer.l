@@ -7,7 +7,7 @@
 	#include "location.hh"
 	using namespace std;
 	#define YY_USER_ACTION driver.setLine(yylineno); \
-		driver.setColumn(yyleng);
+		driver.setColumn(driver.col + yyleng);
 	#define yyterminate() return Ni::Parser::make_EOF();
 
 %}

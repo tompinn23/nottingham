@@ -58,6 +58,8 @@ void Driver::SwitchStream(std::istream *is, std::string* filename) {
 
 void Driver::setLine(unsigned int line)
 {
+	if(line > this->line)
+		col = 0;
 	this->line = line;
 }
 

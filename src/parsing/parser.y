@@ -217,9 +217,7 @@ return
 | RETURN var END_STATEMENT { $$ = new ReturnNode($2); }
 ;
 
-var
-: IDENTIFIER { $$ = new VarNode($1); }
-;
+
 
 
 expr
@@ -227,10 +225,14 @@ expr
 | expr MINUS expr { $$ = new AST::BinOpNode("-", $1, $3); }
 | expr MUL expr { $$ = new AST::BinOpNode("*", $1, $3); }
 | expr DIV expr { $$ = new AST::BinOpNode("/", $1, $3); }
-|LEFTPAR expr RIGHTPAR { $$ = $2; }
+| LEFTPAR expr RIGHTPAR { $$ = $2; }
 | lit { $$ = $1; }
+| var
 ;
 
+var
+: IDENTIFIER { $$ = new VarNode($1); }
+;
 
 
 
@@ -242,7 +244,7 @@ lit
 	$$ = new AST::StringNode($1); 
 }
 | BOOL { $$ = new AST::BoolNode($1); }
-|INT { $$ = new AST::IntNode($1); std::cout << $$ << std::endl;}
+|INT { $$ = new AST::IntNode($1); }
 | DOUBLE { $$ = new AST::DoubleNode($1); }
 ;
 %%

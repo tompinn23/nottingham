@@ -26,7 +26,6 @@ namespace AST{
 	class ReturnNode;
 	class VarNode;
 }
-
 using namespace AST;
 using ::llvm::Module;
 using ::llvm::IRBuilder;
@@ -55,7 +54,7 @@ namespace Ni {
 		std::unique_ptr<IRBuilder<> > builder;
 		std::stack<llvm::Value*> valueStack;
 		std::vector<ASTNode*> processedNodes;
-
+		
 	};
 }
 #endif //VISITOR_H

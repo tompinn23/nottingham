@@ -165,6 +165,7 @@ void Visitor::NodeVisit(FunctionNode &node)
 		fn = llvm::Function::Create(fnType, llvm::Function::ExternalLinkage, node.name, module.get());
 	else
 		fn = llvm::Function::Create(fnType, llvm::Function::PrivateLinkage, node.name, module.get());
+
 }
 
 void Visitor::NodeVisit(ArgNode &node)

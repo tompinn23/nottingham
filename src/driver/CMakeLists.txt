@@ -20,7 +20,7 @@ configure_file(
     ${CMAKE_BINARY_DIR}/version.h
 )
 
-
+include_directories(${CMAKE_BINARY_DIR})
 add_executable(notts main.cc driver.cc)
 add_dependencies(notts nottsAST nottsCodegen nottsParsing)
 llvm_map_components_to_libnames(llvm_libs

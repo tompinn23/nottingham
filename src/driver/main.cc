@@ -13,7 +13,7 @@ using namespace Ni;
 
 int main(int argc, char** argv)
 {
-	args::ArgumentParser argParser("Nilang Compiler");
+	args::ArgumentParser argParser("Nottingham Compiler: " VERSION);
 	args::HelpFlag help(argParser, "help", "Display this help menu", {'h', "help"});
 	args::Flag print(argParser,  "print",  "Print llvm ir to output",{'p', "print"});
 	args::Positional<std::string> file(argParser, "file", "Input File");
