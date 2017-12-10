@@ -52,7 +52,7 @@ IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
     ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
   )
 ENDIF()
-include_directories(${notts_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR} ${BISON_Parser_OUTPUT_HEADER} ${CMAKE_SOURCE_DIR}/src/parsing)
+include_directories(${NOTTS_MAIN_INCLUDE_DIR} ${LLVM_INCLUDE_DIR} ${BISON_Parser_OUTPUT_HEADER} ${CMAKE_SOURCE_DIR}/src/parsing)
 add_subdirectory(parsing)
 add_subdirectory(ast)
 add_subdirectory(codegen)

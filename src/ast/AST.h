@@ -10,7 +10,7 @@
 namespace AST
 {
 
-enum Types
+enum class Types
 {
 	INT,
 	DOUBLE,

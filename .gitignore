@@ -66,5 +66,7 @@ CPackSourceConfig.cmake
 
 lexer.cc
 parser.cc
+location.hh
+position.hh
 parser.hh
 stack.hh
