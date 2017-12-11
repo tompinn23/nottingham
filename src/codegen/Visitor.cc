@@ -16,6 +16,23 @@ Visitor::Visitor(Module* module_arg) : module(std::unique_ptr<Module> (module_ar
 
 }
 
+bool Visitor::EnterContext()
+{
+	contexts.push(ctx);
+	ctx = new std::vector<llvm::Value*>();
+	if(ctx == 0)
+		return false;
+	return true;
+}
+
+bool Visitor::LeaveContext()
+{
+	if(contexts.empty())
+		return false;
+	ctx = contexts.top(); contexts.pop();
+	return true;
+}
+
 ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 {
 	if(visit)
@@ -31,6 +48,12 @@ Visitor::~Visitor()
 {
 	for(ASTNode* i : processedNodes)
 	{
+		delete i;
+	}
+	while(!contexts.empty())
+	{
+		std::vector<llvm::Value*>* i = contexts.top();
+		contexts.pop();
 		delete i;
 	}
 }

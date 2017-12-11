@@ -50,11 +50,14 @@ namespace Ni {
 		void NodeVisit(VarNode &node);
 		void NodeVisit(ReturnNode &node);
 		std::unique_ptr<Module> module;
+		bool EnterContext();		
+		bool LeaveContext();
 	private:
 		std::unique_ptr<IRBuilder<> > builder;
 		std::stack<llvm::Value*> valueStack;
 		std::vector<ASTNode*> processedNodes;
-		
+		std::vector<llvm::Value*>* ctx;
+		std::stack<std::vector<llvm::Value*>*> contexts; 
 	};
 }
 #endif //VISITOR_H
