@@ -27,7 +27,7 @@ Types StringToType(std::string str);
 class DeclarationNode : public ASTNode {
 public:
 	DeclarationNode(Types ty, std::string name, ASTNode *v);
-	~DeclarationNode() { delete val; }
+	~DeclarationNode();
 	ASTNode* GetValue();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::DeclarationNode; }
@@ -40,7 +40,7 @@ public:
 class BinOpNode : public ASTNode {
 public:
 	BinOpNode(std::string op_arg, ASTNode* lhs_arg,  ASTNode* rhs_arg) : op(op_arg), lhs(lhs_arg), rhs(rhs_arg) {}
-	~BinOpNode() { delete lhs;  delete rhs; }
+	~BinOpNode();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::BinOpNode; }
 	std::string op;
@@ -50,8 +50,9 @@ public:
 class FunctionNode : public ASTNode {
 public:
 	//TODO: Args?
-	FunctionNode(bool pub, std::string name, AST::Types ty, ASTNode* args, ASTNode* block)
+	FunctionNode(bool pub, std::string name, AST::Types ty, ArgsNode* args, BlockNode* block)
 	: pub(pub), name(name), ty(ty), args(args), block(block) {}
+	~FunctionNode();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::FunctionNode; }
 
@@ -74,6 +75,7 @@ public:
 class ArgsNode : public ASTNode {
 public:
 	ArgsNode(ArgNode* init) { args.push_back(init); }
+	~ArgsNode();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::ArgsNode; }
 	void Extend(ArgNode* node) { args.push_back(node); }
@@ -83,25 +85,27 @@ public:
 class BlockNode : public ASTNode {
 public:
 	BlockNode(ASTNode* stmt) {};
+	~BlockNode();
 	ASTNode* accept(Ni::Visitor &visitor) { return this; }
 	NodeType GetType() { return NodeType::BlockNode; }
 	void Extend(ASTNode* node) {}
 	std::vector<ASTNode*> stmts;
 };
 
+/* 
 class EndBlockNode : public ASTNode {
 public:
 	EndBlockNode() {};
 	ASTNode* accept(Ni::Visitor &visitor) { return this; }
 	NodeType GetType() { return NodeType::EndBlockNode; }
 };
-
+ */
 class ReturnNode : public ASTNode {
 public:
 	ReturnNode(ASTNode* val) : retVal(val) {}
+	~ReturnNode();
 	ASTNode* accept(Ni::Visitor &visitor) {visitor.NodeVisit(*this); return  this;}
 	NodeType GetType() { return NodeType::ReturnNode; }
-
 	ASTNode* retVal;
 };
 
@@ -110,7 +114,7 @@ public:
 	VarNode(std::string name) : name(name) {}
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::VarNode; }
-	
+	""
 	std::string name;
 };
 

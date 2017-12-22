@@ -47,7 +47,7 @@ ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 			return node->accept(*this);
 		else
 			std::cout << "Error node is null" << std::endl;
-	//processedNodes.push_back(node);
+	processedNodes.push_back(node);
 	return node;
 }
 
