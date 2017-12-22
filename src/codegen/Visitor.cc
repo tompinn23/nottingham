@@ -5,8 +5,15 @@
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Value.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/Verifier.h"
+
 #include "ast/AST.h"
 #include "ast/ASTTypes.h"
+
+#include "driver/rang.hpp"
+
 using namespace AST;
 using namespace Ni;
 
@@ -157,6 +164,7 @@ void Visitor::NodeVisit(BinOpNode &node)
 
 llvm::Type* ASTTypeToLLVMType(AST::Types ty, llvm::LLVMContext &context)
 {
+	//Will cause segfault if type isnt one of the following.
 	switch(ty)
 	{
 		case Types::BOOL:
@@ -167,6 +175,8 @@ llvm::Type* ASTTypeToLLVMType(AST::Types ty, llvm::LLVMContext &context)
 			return llvm::Type::getInt64Ty(context);
 		case Types::STRING:
 			return llvm::Type::getInt8PtrTy(context);
+		case Types::VOID:
+			return llvm::Type::getVoidTy(context);
 	}
 }
 
@@ -188,7 +198,19 @@ void Visitor::NodeVisit(FunctionNode &node)
 		fn = llvm::Function::Create(fnType, llvm::Function::ExternalLinkage, node.name, module.get());
 	else
 		fn = llvm::Function::Create(fnType, llvm::Function::PrivateLinkage, node.name, module.get());
-
+	llvm::BasicBlock* block = llvm::BasicBlock::Create(module->getContext(), "entry", fn);
+	builder->SetInsertPoint(block);
+	Visit(node.block, true);
+	if(node.ty != Types::VOID)
+	{
+		llvm::Value* ret = valueStack.top();
+		valueStack.pop();
+		builder->CreateRet(ret);
+	}
+	else
+		builder->CreateRetVoid();
+	std::cout << rang::style::bold << rang::fg::green << "info: " << rang::style::reset << "verifying function" << node.name << "\n";
+	llvm::verifyFunction(*fn);
 }
 
 void Visitor::NodeVisit(ArgNode &node)

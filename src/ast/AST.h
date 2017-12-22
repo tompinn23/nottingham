@@ -16,6 +16,7 @@ enum class Types
 	DOUBLE,
 	BOOL,
 	STRING,
+	VOID,
 	UserDefined,
 };
 
@@ -57,8 +58,8 @@ public:
 	bool pub;
 	std::string name;
 	AST::Types ty;
-	ASTNode* args;
-	ASTNode* block;
+	ArgsNode* args;
+	BlockNode* block;
 };
 
 class ArgNode : public ASTNode {
@@ -85,7 +86,7 @@ public:
 	ASTNode* accept(Ni::Visitor &visitor) { return this; }
 	NodeType GetType() { return NodeType::BlockNode; }
 	void Extend(ASTNode* node) {}
-	
+	std::vector<ASTNode*> stmts;
 };
 
 class EndBlockNode : public ASTNode {

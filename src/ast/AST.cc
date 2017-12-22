@@ -24,5 +24,7 @@ Types AST::StringToType(std::string str)
 		return Types::BOOL;
 	if(str == "string")
 		return Types::STRING;
+	if(str == "void")
+		return Types::VOID;
 	return Types::UserDefined;
 }

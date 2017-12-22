@@ -171,7 +171,7 @@ items
 
 item
 : item_dec  { $1->global = true; visitor.Visit($1, visit);}
-| fn
+| fn { visitor.Visit($1, visit); }
 ;
 
 item_dec
@@ -203,13 +203,12 @@ block
 block_items
 : block_item { $$ = new AST::BlockNode($1); }
 | block_items block_item { $$ = ext_blk($1, $2); }
-
 ;
 
 block_item
 : item_dec { $$ = $1; } 
 | return { $$ = $1; }
-| RIGHTBRACE { $$ = new AST::BlockNode(new AST::IntNode(10)); }
+| RIGHTBRACE { $$ = new AST::BlockNode(new AST::BoolNode(false)); }
 ;
 
 return
@@ -244,7 +243,7 @@ lit
 	$$ = new AST::StringNode($1); 
 }
 | BOOL { $$ = new AST::BoolNode($1); }
-|INT { $$ = new AST::IntNode($1); }
+| INT { $$ = new AST::IntNode($1); }
 | DOUBLE { $$ = new AST::DoubleNode($1); }
 ;
 %%
