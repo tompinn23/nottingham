@@ -202,8 +202,8 @@ block
 ;
 
 block_items
-: block_item { $$ = new AST::BlockNode($1); }
-| block_items block_item { $$ = ext_blk($1, $2); }
+: block_item { $$ = new AST::BlockNode($1); std::cout << "Creating Block Node" << "\n"; }
+| block_items block_item { $$ = ext_blk($1, $2); std::cout << "Creating" << "\n"; }
 ;
 
 block_item

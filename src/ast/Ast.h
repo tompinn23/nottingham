@@ -6,24 +6,32 @@
 #include "AstBase.h"
 #include "codegen/Visitor.h"
 
-
+/**
+ * The AST namespace which contains the varying classes for the Abstract Syntax Tree 
+ */
 namespace AST
 {
 
 enum class Types
 {
-	INT,
-	DOUBLE,
-	BOOL,
-	STRING,
-	VOID,
-	UserDefined,
+	INT,  /**< Integer Type */
+	DOUBLE, /**< Double Type */
+	BOOL, /**< Boolean Type */
+	STRING, /**< String Type */
+	VOID, /**< Void Type */
+	UserDefined, /**< User Defined Type eg. Class */
 };
-
+/**
+ * Converts a string to AST::Types 
+ */
 Types StringToType(std::string str);
 
 
-
+/**
+ * Declaration Node Class
+ * 
+ * Defines how variables declarations are stored
+ */
 class DeclarationNode : public ASTNode {
 public:
 	DeclarationNode(Types ty, std::string name, ASTNode *v);
@@ -37,6 +45,11 @@ public:
 	ASTNode* val;
 };
 
+/**
+ * Binary Operation Node Class
+ * 
+ * Define the binary operation node
+ */
 class BinOpNode : public ASTNode {
 public:
 	BinOpNode(std::string op_arg, ASTNode* lhs_arg,  ASTNode* rhs_arg) : op(op_arg), lhs(lhs_arg), rhs(rhs_arg) {}
@@ -47,6 +60,12 @@ public:
 	ASTNode* lhs;
 	ASTNode* rhs;
 };
+
+/**
+ * Function Node Class
+ * 
+ * Defines the node of a function
+ */
 class FunctionNode : public ASTNode {
 public:
 	//TODO: Args?
@@ -62,7 +81,11 @@ public:
 	ArgsNode* args;
 	BlockNode* block;
 };
-
+/**
+ * ArgNode Class
+ * 
+ * This class defines a single argument.
+ */
 class ArgNode : public ASTNode {
 public:
     ArgNode(Types ty_arg, std::string name_arg) : ty(ty_arg), name(name_arg) {}
@@ -72,6 +95,11 @@ public:
 	std::string name;
 };
 
+/**
+ * ArgsNode Class
+ * 
+ * This class defines a list of arguments.
+ */
 class ArgsNode : public ASTNode {
 public:
 	ArgsNode(ArgNode* init) { args.push_back(init); }
@@ -82,13 +110,18 @@ public:
 	std::vector<ArgNode*> args;
 };
 
+/**
+ * BlockNode Class
+ * 
+ * This class defines a block of statements
+ */
 class BlockNode : public ASTNode {
 public:
 	BlockNode(ASTNode* stmt) {};
 	~BlockNode();
-	ASTNode* accept(Ni::Visitor &visitor) { return this; }
+	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::BlockNode; }
-	void Extend(ASTNode* node) {}
+	void Extend(ASTNode* node) {stmts.push_back(node);}
 	std::vector<ASTNode*> stmts;
 };
 
@@ -100,6 +133,11 @@ public:
 	NodeType GetType() { return NodeType::EndBlockNode; }
 };
  */
+/**
+ * Return Class
+ * 
+ * This class defines a return instruction.
+ */
 class ReturnNode : public ASTNode {
 public:
 	ReturnNode(ASTNode* val) : retVal(val) {}
@@ -109,6 +147,11 @@ public:
 	ASTNode* retVal;
 };
 
+/**
+ * Var Class
+ * 
+ * This class defines a variable accessor.
+ */
 class VarNode : public ASTNode {
 public:
 	VarNode(std::string name) : name(name) {}

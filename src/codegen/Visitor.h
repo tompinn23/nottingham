@@ -49,6 +49,7 @@ namespace Ni {
 		void NodeVisit(ArgsNode &node);
 		void NodeVisit(VarNode &node);
 		void NodeVisit(ReturnNode &node);
+		void NodeVisit(BlockNode &node);
 		std::unique_ptr<Module> module;
 		bool EnterContext();		
 		bool LeaveContext();

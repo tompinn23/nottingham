@@ -6,40 +6,40 @@ using namespace AST;
 DeclarationNode::~DeclarationNode()
 {
     std::cout << val << "\n";
-    delete val;
+    //delete val;
 }
 
 BinOpNode::~BinOpNode()
 {
-    delete lhs;
-    delete rhs;
+    //delete lhs;
+    //delete rhs;
 }
 
 FunctionNode::~FunctionNode()
 {
-    delete args;
-    delete block;
+    //delete args;
+    //delete block;
 }
 
 ArgsNode::~ArgsNode()
 {
-    for(ArgNode* i : args)
-    {
-        delete i;
-    }
+    //2for(ArgNode* i : args)
+    //{
+        //delete i;
+    //}
 }
 
 BlockNode::~BlockNode()
 {
-    for(ASTNode* i : stmts)
-    {
-        delete i;
-    }
+    //for(ASTNode* i : stmts)
+    //{
+        //delete i;
+    //}
 }
 
 ReturnNode::~ReturnNode()
 {
-    delete retVal;
+    //delete retVal;
 }
 
 

@@ -125,6 +125,16 @@ void Visitor::NodeVisit(DeclarationNode &node)
             glob->setInitializer(llvm::dyn_cast<llvm::ConstantDataArray>(initValue));
         }
 	}
+	else
+	{
+		std::cout << "I Was Run" << "\n";
+		if(node.val->GetType() == NodeType::IntNode)
+		{
+			std::cout << "creating alloca" << "\n";
+			llvm::Value* alloca = builder->CreateAlloca(llvm::Type::getInt64Ty(module->getContext()),0, node.varName);
+			builder->CreateStore(initValue, alloca);
+		}
+	}
 
 }
 
@@ -200,6 +210,7 @@ void Visitor::NodeVisit(FunctionNode &node)
 		fn = llvm::Function::Create(fnType, llvm::Function::PrivateLinkage, node.name, module.get());
 	llvm::BasicBlock* block = llvm::BasicBlock::Create(module->getContext(), "entry", fn);
 	builder->SetInsertPoint(block);
+	std::cout << "Visiting block" << "\n";
 	Visit(node.block, true);
 	if(node.ty != Types::VOID)
 	{
@@ -209,7 +220,7 @@ void Visitor::NodeVisit(FunctionNode &node)
 	}
 	else
 		builder->CreateRetVoid();
-	std::cout << rang::style::bold << rang::fg::green << "info: " << rang::style::reset << "verifying function" << node.name << "\n";
+	std::cout << rang::style::bold << rang::fg::green << "info: " << rang::style::reset << "verifying function " << node.name << "\n";
 	llvm::verifyFunction(*fn);
 }
 
@@ -221,6 +232,17 @@ void Visitor::NodeVisit(ArgNode &node)
 void Visitor::NodeVisit(ArgsNode &node)
 {
 
+}
+
+void Visitor::NodeVisit(BlockNode &node)
+{
+	std::cout << "Bless?" << "\n";
+	for(ASTNode* i : node.stmts)
+	{
+		std::cout << "Visiting stmt" << "\n";
+		std::cout << i << "\n"; 
+		Visit(i, true);
+	}	
 }
 
 void Visitor::NodeVisit(VarNode &node)
