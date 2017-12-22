@@ -1,7 +1,7 @@
 #ifndef  AST_TYPES_H
 #define AST_TYPES_H
 
-#include "ASTBaseNode.h"
+#include "AstBase.h"
 #include "codegen/Visitor.h"
 #include <string>
 using namespace Ni;

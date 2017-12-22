@@ -13,8 +13,8 @@
 #include <string>
 
 #include "codegen/Visitor.h"
-#include "ast/AST.h"
-#include "ast/ASTTypes.h"
+#include "ast/Ast.h"
+#include "ast/AstTypes.h"
 using namespace std;
 
 
@@ -140,7 +140,8 @@ namespace Ni {
 %type <AST::DeclarationNode*> item_dec
 %type <AST::FunctionNode*> fn
 %type <AST::BlockNode*> block_items block
-%type <AST::ASTNode*> expr lit block_item args
+%type <AST::ArgsNode*> args
+%type <AST::ASTNode*> expr lit block_item
 %type <AST::ReturnNode*> return
 %type <AST::VarNode*> var
 %start program

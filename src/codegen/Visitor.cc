@@ -9,9 +9,8 @@
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Verifier.h"
 
-#include "ast/AST.h"
-#include "ast/ASTTypes.h"
-
+#include "ast/Ast.h"
+#include "ast/AstTypes.h"
 #include "driver/rang.hpp"
 
 using namespace AST;
@@ -44,16 +43,17 @@ ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 {
 	if(visit)
 		if(node != NULL)
-			return node->accept(*this);
+			node->accept(*this);
 		else
 			std::cout << "Error node is null" << std::endl;
 	processedNodes.push_back(node);
+	std::cout << "Pushing Node" << "\n";
 	return node;
 }
 
 Visitor::~Visitor()
 {
-	for(ASTNode* i : processedNodes)
+	std::cout << "Removing nodes from memory" << "\n";	for(ASTNode* i : processedNodes)
 	{
 		delete i;
 	}

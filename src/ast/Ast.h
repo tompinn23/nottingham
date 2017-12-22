@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdarg>
 
-#include "ASTBaseNode.h"
+#include "AstBase.h"
 #include "codegen/Visitor.h"
 
 
@@ -114,7 +114,7 @@ public:
 	VarNode(std::string name) : name(name) {}
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::VarNode; }
-	""
+	
 	std::string name;
 };
 
