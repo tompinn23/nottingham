@@ -86,12 +86,13 @@ void Visitor::NodeVisit(BoolNode &node)
 
 void Visitor::NodeVisit(DeclarationNode &node)
 {
+	std::cout << "Decl" << "\n";
 	*this->Visit(node.val, true);
 	llvm::Value* initValue = valueStack.top();
 	valueStack.pop();
 	if(node.global)
 	{
-		if(node.val->GetType() == NodeType::IntNode)
+		if(node.varType == Types::INT)
 		{
 			module->getOrInsertGlobal(node.varName, builder->getInt64Ty());
 			llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
@@ -99,7 +100,7 @@ void Visitor::NodeVisit(DeclarationNode &node)
 			glob->setAlignment(4);
 			glob->setInitializer(llvm::dyn_cast<llvm::ConstantInt>(initValue));
 		}
-		if(node.val->GetType() == NodeType::DoubleNode)
+		if(node.varType == Types::DOUBLE)
         {
             module->getOrInsertGlobal(node.varName, builder->getDoubleTy());
             llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
@@ -107,7 +108,7 @@ void Visitor::NodeVisit(DeclarationNode &node)
             glob->setAlignment(4);
             glob->setInitializer(llvm::dyn_cast<llvm::ConstantFP>(initValue));
         }
-		if(node.val->GetType() == NodeType::BoolNode)
+		if(node.varType == Types::BOOL)
         {
             module->getOrInsertGlobal(node.varName, builder->getInt1Ty());
             llvm::GlobalVariable* glob = module->getGlobalVariable(node.varName);
@@ -115,7 +116,7 @@ void Visitor::NodeVisit(DeclarationNode &node)
             glob->setAlignment(4);
             glob->setInitializer(llvm::dyn_cast<llvm::ConstantInt>(initValue));
         }
-		if(node.val->GetType() == NodeType::StringNode)
+		if(node.varType == Types::STRING)
         {
 			llvm::ConstantDataArray* data = llvm::dyn_cast<llvm::ConstantDataArray>(initValue);
             module->getOrInsertGlobal(node.varName, data->getType());
@@ -128,12 +129,25 @@ void Visitor::NodeVisit(DeclarationNode &node)
 	else
 	{
 		std::cout << "I Was Run" << "\n";
-		if(node.val->GetType() == NodeType::IntNode)
+		std::cout << node.val << "\n";
+		if(node.varType == Types::INT)
 		{
 			std::cout << "creating alloca" << "\n";
 			llvm::Value* alloca = builder->CreateAlloca(llvm::Type::getInt64Ty(module->getContext()),0, node.varName);
 			builder->CreateStore(initValue, alloca);
 		}
+		if(node.varType == Types::DOUBLE)
+        {
+			std::cout << "DOUBLE" << "\n";
+        }
+		if(node.varType == Types::BOOL)
+        {
+			std::cout << "BOOL" << "\n";
+        }
+		if(node.varType == Types::STRING)
+        {
+			std::cout << "STRING" << "\n";
+        }
 	}
 
 }

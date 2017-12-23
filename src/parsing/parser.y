@@ -207,7 +207,7 @@ block_items
 ;
 
 block_item
-: item_dec { $$ = $1; } 
+: item_dec { $$ = $1; std::cout << "HELP" << "\n"; } 
 | return { $$ = $1; }
 | RIGHTBRACE { $$ = new AST::BlockNode(new AST::BoolNode(false)); }
 ;
