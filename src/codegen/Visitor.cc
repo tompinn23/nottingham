@@ -25,7 +25,7 @@ Visitor::Visitor(Module* module_arg) : module(std::unique_ptr<Module> (module_ar
 bool Visitor::EnterContext()
 {
 	contexts.push(ctx);
-	ctx = new std::vector<llvm::Value*>();
+	ctx = new std::map<std::string, llvm::Value*>();
 	if(ctx == 0)
 		return false;
 	return true;
@@ -46,14 +46,14 @@ ASTNode* Ni::Visitor::Visit(ASTNode *node, bool visit)
 			node->accept(*this);
 		else
 			std::cout << "Error node is null" << std::endl;
+			return node;
 	processedNodes.push_back(node);
-	std::cout << "Pushing Node" << "\n";
 	return node;
 }
 
 Visitor::~Visitor()
 {
-	std::cout << "Removing nodes from memory" << "\n";	for(ASTNode* i : processedNodes)
+	for(ASTNode* i : processedNodes)
 	{
 		delete i;
 	}
@@ -129,7 +129,6 @@ void Visitor::NodeVisit(DeclarationNode &node)
 	else
 	{
 		std::cout << "I Was Run" << "\n";
-		std::cout << node.val << "\n";
 		if(node.varType == Types::INT)
 		{
 			std::cout << "creating alloca" << "\n";
@@ -181,7 +180,8 @@ void Visitor::NodeVisit(BinOpNode &node)
 	}
 	else if(node.op == "/")
 	{
-		res = builder->CreateFDiv(lhs, rhs, "divtmp");
+		if(i) res = builder->CreateSDiv(lhs, rhs, "divtmp");
+		else res = builder->CreateFDiv(lhs, rhs, "divtmp");
 	}
 	valueStack.push(res);
 }
@@ -218,7 +218,9 @@ void Visitor::NodeVisit(FunctionNode &node)
 	else
 		fnType = llvm::FunctionType::get(resType, false);
 	llvm::Function* fn;
-	if(node.pub)
+	//if(node.pub)
+	//the above doesnt work how i think it did need to fix!
+	if(true)
 		fn = llvm::Function::Create(fnType, llvm::Function::ExternalLinkage, node.name, module.get());
 	else
 		fn = llvm::Function::Create(fnType, llvm::Function::PrivateLinkage, node.name, module.get());
@@ -250,7 +252,6 @@ void Visitor::NodeVisit(ArgsNode &node)
 
 void Visitor::NodeVisit(BlockNode &node)
 {
-	std::cout << "Bless?" << "\n";
 	for(ASTNode* i : node.stmts)
 	{
 		std::cout << "Visiting stmt" << "\n";
@@ -261,7 +262,7 @@ void Visitor::NodeVisit(BlockNode &node)
 
 void Visitor::NodeVisit(VarNode &node)
 {
-
+	module->getGlobalVariable(node.name);
 }
 
 void Visitor::NodeVisit(ReturnNode &node)

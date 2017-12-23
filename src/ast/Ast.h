@@ -117,7 +117,7 @@ public:
  */
 class BlockNode : public ASTNode {
 public:
-	BlockNode(ASTNode* stmt) {};
+	BlockNode(ASTNode* stmt) {stmts.push_back(stmt); };
 	~BlockNode();
 	ASTNode* accept(Ni::Visitor &visitor) { visitor.NodeVisit(*this); return this; }
 	NodeType GetType() { return NodeType::BlockNode; }

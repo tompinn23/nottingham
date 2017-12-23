@@ -57,8 +57,8 @@ namespace Ni {
 		std::unique_ptr<IRBuilder<> > builder;
 		std::stack<llvm::Value*> valueStack;
 		std::vector<ASTNode*> processedNodes;
-		std::vector<llvm::Value*>* ctx;
-		std::stack<std::vector<llvm::Value*>*> contexts; 
+		std::map<std::string, llvm::Value*>* ctx;
+		std::stack<std::map<std::string, llvm::Value*>*> contexts; 
 	};
 }
 #endif //VISITOR_H
